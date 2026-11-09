@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Зберіть спорядження для одноденного або дводенного походу та завантажте персональний чекліст у PDF.">
+  <title>Чекліст підготовки — Мій похід</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "deep-moss": "var(--color-primary)",
+            "focus-ring": "var(--color-focus-ring)",
+            cream: "var(--color-bg-base)",
+            "warm-amber": "var(--color-accent)",
+            "alpine-earth": "var(--color-secondary)",
+            "text-primary": "var(--color-text-primary)",
+            "text-muted": "var(--color-text-muted)",
+            "footer-muted": "var(--color-footer-muted)",
+            "surface-muted": "var(--color-surface-muted)"
+          },
+          fontFamily: {
+            body: "var(--font-body)"
+          },
+          minHeight: {
+            header: "var(--header-min-height)"
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-body text-text-primary">
+  <div class="page">
+    <header class="site-header">
+      <div class="container relative flex min-h-header flex-wrap items-center justify-between gap-4 md:flex-nowrap">
+        <a
+          class="logo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-moss"
+          href="index.html#main"
+          aria-label="Мій похід — на головну"
+        >
+          <img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img">
+        </a>
+
+        <nav
+          id="header-navigation"
+          class="header-navigation order-last hidden w-full py-3 md:order-none md:flex md:w-auto md:items-center md:gap-6 md:py-0"
+          aria-label="Головна навігація"
+        >
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="about.html"
+          >Про проєкт</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="checklist.html"
+            aria-current="page"
+          >Чекліст підготовки</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="contacts.html"
+          >Контакти</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="reviews.html"
+          >Відгуки</a>
+        </nav>
+
+        <button
+          id="mobile-menu-toggle"
+          class="order-2 flex items-center justify-center rounded-lg p-2 text-text-primary hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:hidden"
+          type="button"
+          aria-label="Відкрити меню"
+          aria-controls="header-navigation"
+          aria-expanded="false"
+        >
+          <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <a
+          class="button button-small order-3 !hidden !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 md:!inline-flex"
+          href="planner.html"
+        >Підібрати свій похід</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="checklist-section" aria-labelledby="checklist-title">
+        <div class="container checklist-container">
+          <header class="checklist-heading">
+            <h1 id="checklist-title">Базовий чекліст спорядження для походу</h1>
+            <p>Відмічайте зібрані речі прямо на сторінці, щоб нічого не забути перед виходом на маршрут</p>
+          </header>
+
+          <fieldset class="checklist-mode">
+            <legend>Тип походу:</legend>
+            <label class="checklist-mode-option">
+              <input type="radio" name="trip-mode" value="day" checked>
+              <span>Одноденний похід</span>
+            </label>
+            <label class="checklist-mode-option">
+              <input type="radio" name="trip-mode" value="overnight">
+              <span>Дводенний з ночівлею</span>
+            </label>
+          </fieldset>
+
+          <div class="checklist-toolbar">
+            <p class="checklist-counter" id="checklist-counter" aria-live="polite">Зібрано: 0 з 18</p>
+            <button class="checklist-pdf-button !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" id="download-checklist-pdf" type="button">Завантажити PDF</button>
+          </div>
+
+          <div class="checklist-grid" id="checklist-grid" aria-live="polite"></div>
+          <p class="checklist-status" id="checklist-status" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer bg-text-primary text-cream">
+      <div class="container footer-content mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 text-left sm:grid-cols-2 sm:px-8 lg:px-10">
+        <div class="footer-brand items-start">
+          <a class="logo footer-logo rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="index.html#main" aria-label="Мій похід — на головну"><img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img"></a>
+          <p class="footer-tagline text-footer-muted">Ваш похід починається з доброго плану</p>
+        </div>
+        <nav class="footer-navigation justify-start" aria-label="Навігація в підвалі">
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="about.html">Про проєкт</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="checklist.html">Чекліст підготовки</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="contacts.html">Контакти</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="reviews.html">Відгуки</a>
+        </nav>
+        <div class="copyright border-t border-alpine-earth pt-6 text-footer-muted sm:col-span-2">© 2026 Мій похід. Бережімо Карпати.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const menuButton = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("header-navigation");
+
+    if (!(menuButton instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) {
+      throw new Error("Не знайдено кнопку або навігацію мобільного меню.");
+    }
+
+    function setMenuOpen(isOpen) {
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Закрити меню" : "Відкрити меню");
+      menu.classList.toggle("hidden", !isOpen);
+      menu.classList.toggle("block", isOpen);
+    }
+
+    menuButton.addEventListener("click", () => {
+      setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+    });
+
+    menu.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("a")) {
+        setMenuOpen(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false);
+        menuButton.focus();
+      }
+    });
+
+    window.matchMedia("(min-width: 768px)").addEventListener("change", () => {
+      setMenuOpen(false);
+    });
+
+    const checklistGrid = document.getElementById("checklist-grid");
+    const checklistCounter = document.getElementById("checklist-counter");
+    const checklistStatus = document.getElementById("checklist-status");
+    const pdfButton = document.getElementById("download-checklist-pdf");
+    const modeInputs = document.querySelectorAll('input[name="trip-mode"]');
+
+    if (!(checklistGrid instanceof HTMLElement)
+      || !(checklistCounter instanceof HTMLElement)
+      || !(checklistStatus instanceof HTMLElement)
+      || !(pdfButton instanceof HTMLButtonElement)) {
+      throw new Error("Не вдалося ініціалізувати чекліст.");
+    }
+
+    const checklistData = {
+      day: {
+        label: "Одноденний похід",
+        filename: "cheklist-odnodenniy-pokhid.pdf",
+        categories: [
+          {
+            title: "Обов'язкове спорядження",
+            items: [
+              "Рюкзак (20–30 л для одноденного походу)",
+              "Зручне трекінгове взуття з фіксацією щиколотки",
+              "Дощовик або мембранна куртка",
+              "Запасна тепла кофта (фліс)",
+              "Павербанк та зарядні кабелі",
+              "Індивідуальна аптечка"
+            ]
+          },
+          {
+            title: "Їжа та гідратація",
+            items: [
+              "Пляшка для води або гідратор (мінімум 1,5–2 л)",
+              "Перекуси (горіхи, сухофрукти, енергетичні батончики)",
+              "Поживний обід (сендвічі або сухпай)",
+              "Термос із теплим чаєм у холодний сезон"
+            ]
+          },
+          {
+            title: "Навігація та безпека",
+            items: [
+              "Заряджений смартфон із завантаженими офлайн-картами",
+              "Документи та готівка",
+              "Налобний ліхтарик із запасними батарейками",
+              "Навігаційний свисток"
+            ]
+          },
+          {
+            title: "Особисті речі та комфорт",
+            items: [
+              "Головний убір (кепка від сонця або шапка)",
+              "Сонцезахисні окуляри та крем SPF",
+              "Трекінгові палиці",
+              "Серветки та засоби особистої гігієни"
+            ]
+          }
+        ]
+      },
+      overnight: {
+        label: "Дводенний з ночівлею",
+        filename: "cheklist-dvodennyi-pokhid.pdf",
+        categories: [
+          {
+            title: "Обов'язкове спорядження",
+            items: [
+              "Рюкзак (об'ємом відповідно до спорядження на два дні)",
+              "Зручне трекінгове взуття з фіксацією щиколотки",
+              "Дощовик або мембранна куртка",
+              "Запасна тепла кофта (фліс)",
+              "Павербанк та зарядні кабелі",
+              "Індивідуальна аптечка"
+            ]
+          },
+          {
+            title: "Їжа та гідратація",
+            items: [
+              "Пляшка для води або гідратор (мінімум 1,5–2 л)",
+              "Перекуси (горіхи, сухофрукти, енергетичні батончики)",
+              "Поживний обід і перекуси на перший день",
+              "Термос із теплим чаєм у холодний сезон"
+            ]
+          },
+          {
+            title: "Навігація та безпека",
+            items: [
+              "Заряджений смартфон із завантаженими офлайн-картами",
+              "Документи та готівка",
+              "Навігаційний свисток",
+              "Налобний ліхтарик із запасними батарейками",
+              "Навігаційний свисток"
+            ]
+          },
+          {
+            title: "Особисті речі та комфорт",
+            items: [
+              "Головний убір (кепка від сонця або шапка)",
+              "Сонцезахисні окуляри та крем SPF",
+              "Трекінгові палиці",
+              "Серветки та засоби особистої гігієни"
+            ]
+          },
+          {
+            title: "Ночівля та додаткове спорядження",
+            items: [
+              "Намет",
+              "Спальник відповідно до температури",
+              "Каремат",
+              "Додатковий комплект сухого одягу та шкарпеток",,
+              "Додатковий запас їжі на другий день",
+              "Посуд і столові прибори для походу, якщо вони потрібні для запланованого харчування"
+            ]
+          }
+        ]
+      }
+    };
+    const checkedItems = {
+      day: new Set(),
+      overnight: new Set()
+    };
+    let activeMode = "day";
+    let pdfLibraryPromise;
+
+    function getTotalItems(mode) {
+      return checklistData[mode].categories.reduce((total, category) => total + category.items.length, 0);
+    }
+
+    function updateCounter() {
+      checklistCounter.textContent = `Зібрано: ${checkedItems[activeMode].size} з ${getTotalItems(activeMode)}`;
+    }
+
+    function renderChecklist() {
+      const fragment = document.createDocumentFragment();
+
+      checklistData[activeMode].categories.forEach((category, categoryIndex) => {
+        const card = document.createElement("article");
+        card.className = "checklist-card";
+
+        const heading = document.createElement("h2");
+        heading.className = "checklist-card-title";
+        heading.textContent = category.title;
+        card.append(heading);
+
+        const list = document.createElement("ul");
+        list.className = "checklist-items";
+        category.items.forEach((item, itemIndex) => {
+          const itemId = `${activeMode}-${categoryIndex}-${itemIndex}`;
+          const listItem = document.createElement("li");
+          const label = document.createElement("label");
+          label.className = "checklist-item";
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.value = itemId;
+          checkbox.checked = checkedItems[activeMode].has(itemId);
+
+          const text = document.createElement("span");
+          text.textContent = item;
+          label.append(checkbox, text);
+          listItem.append(label);
+          list.append(listItem);
+        });
+
+        card.append(list);
+        fragment.append(card);
+      });
+
+      checklistGrid.replaceChildren(fragment);
+      checklistGrid.classList.remove("checklist-grid-enter");
+      requestAnimationFrame(() => checklistGrid.classList.add("checklist-grid-enter"));
+      updateCounter();
+    }
+
+    modeInputs.forEach((input) => {
+      input.addEventListener("change", () => {
+        if (input.checked && (input.value === "day" || input.value === "overnight")) {
+          activeMode = input.value;
+          renderChecklist();
+        }
+      });
+    });
+
+    checklistGrid.addEventListener("change", (event) => {
+      if (!(event.target instanceof HTMLInputElement) || event.target.type !== "checkbox") {
+        return;
+      }
+
+      if (event.target.checked) {
+        checkedItems[activeMode].add(event.target.value);
+      } else {
+        checkedItems[activeMode].delete(event.target.value);
+      }
+      updateCounter();
+    });
+
+    function loadPdfLibrary() {
+      if (typeof window.html2pdf === "function") {
+        return Promise.resolve();
+      }
+      if (pdfLibraryPromise) {
+        return pdfLibraryPromise;
+      }
+
+      pdfLibraryPromise = new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js";
+        script.onload = () => {
+          if (typeof window.html2pdf === "function") {
+            resolve();
+          } else {
+            reject(new Error("Бібліотека PDF не завантажилася коректно."));
+          }
+        };
+        script.onerror = () => reject(new Error("Не вдалося завантажити бібліотеку для створення PDF."));
+        document.head.append(script);
+      });
+      return pdfLibraryPromise;
+    }
+
+    function createPdfContent() {
+      const exportRoot = document.createElement("div");
+      exportRoot.className = "checklist-pdf-export";
+
+      const title = document.createElement("h1");
+      title.textContent = "Базовий чекліст спорядження для походу";
+      exportRoot.append(title);
+
+      const mode = document.createElement("p");
+      mode.textContent = `Тип походу: ${checklistData[activeMode].label}`;
+      exportRoot.append(mode);
+
+      const counter = document.createElement("p");
+      counter.textContent = checklistCounter.textContent;
+      exportRoot.append(counter);
+
+      checklistData[activeMode].categories.forEach((category, categoryIndex) => {
+        const card = document.createElement("section");
+        card.className = "checklist-pdf-card";
+        const heading = document.createElement("h2");
+        heading.textContent = category.title;
+        card.append(heading);
+
+        const list = document.createElement("ul");
+        category.items.forEach((item, itemIndex) => {
+          const itemId = `${activeMode}-${categoryIndex}-${itemIndex}`;
+          const row = document.createElement("li");
+          const mark = document.createElement("span");
+          mark.className = checkedItems[activeMode].has(itemId) ? "checklist-pdf-mark is-checked" : "checklist-pdf-mark";
+          mark.textContent = checkedItems[activeMode].has(itemId) ? "✓" : "";
+          mark.setAttribute("aria-hidden", "true");
+          const text = document.createElement("span");
+          text.textContent = item;
+          row.append(mark, text);
+          list.append(row);
+        });
+        card.append(list);
+        exportRoot.append(card);
+      });
+
+      return exportRoot;
+    }
+
+    pdfButton.addEventListener("click", async () => {
+      pdfButton.disabled = true;
+      checklistStatus.textContent = "Створюємо PDF…";
+      let exportRoot;
+      try {
+        await loadPdfLibrary();
+        exportRoot = createPdfContent();
+        document.body.append(exportRoot);
+        await window.html2pdf()
+          .set({
+            margin: [10, 10, 10, 10],
+            filename: checklistData[activeMode].filename,
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, backgroundColor: "#FAF6ED" },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+            pagebreak: { mode: ["css", "legacy"] }
+          })
+          .from(exportRoot)
+          .save();
+        checklistStatus.textContent = "PDF завантажено.";
+      } catch (error) {
+        checklistStatus.textContent = error instanceof Error
+          ? `Не вдалося створити PDF: ${error.message}`
+          : "Не вдалося створити PDF. Спробуйте ще раз.";
+      } finally {
+        exportRoot?.remove();
+        pdfButton.disabled = false;
+      }
+    });
+
+    renderChecklist();
+  </script>
+</body>
+</html>

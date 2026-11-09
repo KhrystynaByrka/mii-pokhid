@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Платформа для підбору маршрутів Українськими Карпатами.">
+  <title>Мій похід — маршрути Українських Карпат</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "deep-moss": "var(--color-primary)",
+            "deep-moss-hover": "var(--color-primary-hover)",
+            "light-green": "var(--color-light-green)",
+            "focus-ring": "var(--color-focus-ring)",
+            cream: "var(--color-bg-base)",
+            "warm-amber": "var(--color-accent)",
+            "alpine-earth": "var(--color-secondary)",
+            "text-primary": "var(--color-text-primary)",
+            "text-muted": "var(--color-text-muted)",
+            "text-on-dark": "var(--color-text-on-dark)",
+            "footer-muted": "var(--color-footer-muted)",
+            "card-text": "var(--color-card-text)",
+            "surface-warm": "var(--color-surface-warm)",
+            "surface-muted": "var(--color-surface-muted)",
+            success: "var(--color-success)",
+            warning: "var(--color-warning)",
+            error: "var(--color-error)"
+          },
+          fontFamily: {
+            heading: "var(--font-heading)",
+            body: "var(--font-body)"
+          },
+          fontSize: {
+            eyebrow: "var(--font-size-eyebrow)",
+            caption: "var(--font-size-caption)",
+            nav: "var(--font-size-nav)",
+            "body-small": "var(--font-size-body-small)",
+            review: "var(--font-size-review)",
+            "body-large": "var(--font-size-body-large)",
+            "heading-small": "var(--font-size-heading-small)",
+            "heading-medium": "var(--font-size-heading-medium)",
+            "heading-large": "var(--font-size-heading-large)"
+          },
+          fontWeight: {
+            medium: "var(--font-weight-medium)",
+            semibold: "var(--font-weight-semibold)",
+            bold: "var(--font-weight-bold)"
+          },
+          lineHeight: {
+            body: "var(--line-height-body)",
+            heading: "var(--line-height-heading)"
+          },
+          spacing: {
+            xs: "var(--spacing-xs)",
+            sm: "var(--spacing-sm)",
+            md: "var(--spacing-md)",
+            lg: "var(--spacing-lg)",
+            xl: "var(--spacing-xl)",
+            "2xl": "var(--spacing-2xl)",
+            card: "var(--spacing-card)",
+            "section-heading": "var(--spacing-section-heading)",
+            "mobile-heading": "var(--spacing-mobile-heading)",
+            "mobile-section": "var(--spacing-mobile-section)",
+            "hero-content": "var(--spacing-hero-content)",
+            "hero-offset": "var(--spacing-hero-offset)",
+            "tablet-navigation": "var(--spacing-tablet-navigation)",
+            "mobile-navigation": "var(--spacing-mobile-navigation)",
+            "mobile-header": "var(--spacing-mobile-header)",
+            "mobile-button": "var(--spacing-mobile-button)",
+            cta: "var(--spacing-cta)"
+          },
+          borderRadius: {
+            button: "var(--radius-button)",
+            card: "var(--radius-route-card)",
+            pill: "var(--radius-pill)",
+            circle: "var(--radius-circle)"
+          },
+          boxShadow: {
+            card: "var(--shadow-card)",
+            "card-hover": "var(--shadow-card-hover)"
+          },
+          transitionDuration: {
+            fast: "var(--duration-fast)"
+          },
+          maxWidth: {
+            site: "var(--container-width)",
+            "hero-copy": "var(--hero-copy-width)",
+            "hero-paragraph": "var(--hero-paragraph-width)",
+            "section-heading": "var(--section-heading-width)",
+            "cta-content": "var(--cta-content-width)",
+            "cta-heading": "var(--cta-heading-width)"
+          },
+          minHeight: {
+            header: "var(--header-min-height)",
+            button: "var(--button-min-height)",
+            "button-small": "var(--button-small-min-height)",
+            "button-route": "var(--button-route-min-height)"
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-body text-text-primary">
+  <div class="page">
+    <header class="site-header">
+      <div class="container relative flex min-h-header flex-wrap items-center justify-between gap-4 md:flex-nowrap">
+        <a
+        class="logo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-moss"
+          href="#main"
+          aria-label="Мій похід — на головну"
+        >
+          <img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img">
+        </a>
+
+        <nav
+          id="header-navigation"
+          class="header-navigation order-last hidden w-full py-3 md:order-none md:flex md:w-auto md:items-center md:gap-6 md:py-0"
+          aria-label="Головна навігація"
+        >
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="about.html"
+          >Про проєкт</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="checklist.html"
+          >Чекліст підготовки</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="contacts.html"
+          >Контакти</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="reviews.html"
+          >Відгуки</a>
+        </nav>
+
+        <button
+          id="mobile-menu-toggle"
+          class="order-2 flex items-center justify-center rounded-lg p-2 text-text-primary transition-all duration-200 hover:bg-surface-muted hover:shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:hidden"
+          type="button"
+          aria-label="Відкрити меню"
+          aria-controls="header-navigation"
+          aria-expanded="false"
+        >
+          <svg
+            aria-hidden="true"
+            class="h-6 w-6"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <a
+          class="button button-small order-3 !hidden !transition-all duration-200 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:!inline-flex"
+          href="planner.html"
+        >Підібрати свій похід</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <video class="hero-video" data-motion-video muted playsinline aria-hidden="true">
+          <source src="assets/images/відео.mp4" type="video/mp4">
+        </video>
+        <div class="container hero-content">
+          <div class="hero-copy">
+            <div class="eyebrow">Маршрути Українських Карпат</div>
+            <h1 id="hero-title">Похід у Карпатах, який підходить саме вам</h1>
+            <p>Зручний пошук маршрутів, зрозуміла оцінка складності та чекліст підготовки — усе для впевненої мандрівки в Карпати.</p>
+            <div class="button-group">
+              <a class="button !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="planner.html">Підібрати свій похід</a>
+              <a class="button button-outline button-outline-light !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="checklist.html">Відкрити чекліст</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how-it-works" aria-labelledby="how-it-works-title">
+        <div class="container">
+          <div class="section-heading">
+            <div class="eyebrow">Як це працює</div>
+            <h2 id="how-it-works-title">Три кроки від ідеї до рюкзака</h2>
+            <p>Ви одразу бачите, які маршрути відповідають вашим умовам і що взяти з собою — без здогадів і чужих порад із форумів.</p>
+          </div>
+          <ol class="steps-grid">
+            <li>
+              <article class="step-card">
+                <div class="step-number">01</div>
+                <h3>Опишіть свій похід</h3>
+                <p>Кількість людей, час, рівень складності та сезон. Пів хвилини на форму — і у списку лишається тільки те, що вам підходить.</p>
+              </article>
+            </li>
+            <li>
+              <article class="step-card">
+                <div class="step-number">02</div>
+                <h3>Порівняйте маршрути</h3>
+                <p>Для кожного маршруту — тривалість, набір висоти, тип рельєфу й сезонні обмеження. Виберіть той, який ваша група справді пройде.</p>
+              </article>
+            </li>
+            <li>
+              <article class="step-card">
+                <div class="step-number">03</div>
+                <h3>Підготуйтеся до виходу</h3>
+                <p>Відкрийте чекліст, відмітьте спорядження, яке вже готове, і побачте, що залишилося зібрати до виходу.</p>
+              </article>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section-muted" id="routes" aria-labelledby="routes-title">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="routes-title">Популярні маршрути</h2>
+            <p>Обирайте перевірені треки для будь-якого рівня підготовки</p>
+          </div>
+          <ul class="routes-grid grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <li>
+              <article id="route-shpytsi" class="route-card card-hover group overflow-hidden rounded-card bg-white shadow-card">
+                <div class="route-image route-image-one relative shrink-0">
+                  <img src="assets/images/шпиці.jpg" alt="Гора Шпиці" class="transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="route-content">
+                  <div class="route-meta flex-wrap">
+                    <span class="difficulty-badge difficulty-hard">Складний</span>
+                    <span class="route-rating">Оцінка користувачів ★ 5</span>
+                  </div>
+                  <div class="route-area">Чорногірський хребет</div>
+                  <h3 class="font-heading">Шпиці</h3>
+                  <p>Вражаючий трек Чорногорою до величних кам'яних веж</p>
+                  <dl class="route-stats">
+                    <div><dt>Відстань</dt><dd>12 км</dd></div>
+                    <div><dt>Набір висоти</dt><dd>850 м</dd></div>
+                    <div><dt>Час</dt><dd>6–7 год</dd></div>
+                  </dl>
+                  <a class="route-button !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="#routes">Переглянути маршрут</a>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article id="route-nesamovyte" class="route-card card-hover group overflow-hidden rounded-card bg-white shadow-card">
+                <div class="route-image route-image-two relative shrink-0">
+                  <img src="assets/images/озеро несамовите.jpeg" alt="Озеро Несамовите" class="transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="route-content">
+                  <div class="route-meta flex-wrap">
+                    <span class="difficulty-badge difficulty-medium">Середній</span>
+                    <span class="route-rating">Оцінка користувачів ★ 5</span>
+                  </div>
+                  <div class="route-area">Чорногора</div>
+                  <h3 class="font-heading">Озеро Несамовите</h3>
+                  <p>Мальовничий маршрут через високогірне озеро з виходом на гребінь</p>
+                  <dl class="route-stats">
+                    <div><dt>Відстань</dt><dd>14 км</dd></div>
+                    <div><dt>Набір висоти</dt><dd>700 м</dd></div>
+                    <div><dt>Час</dt><dd>7–8 год</dd></div>
+                  </dl>
+                  <a class="route-button !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="#routes">Переглянути маршрут</a>
+                </div>
+              </article>
+            </li>
+            <li>
+              <article id="route-polonyna" class="route-card card-hover group overflow-hidden rounded-card bg-white shadow-card">
+                <div class="route-image route-image-three relative shrink-0">
+                  <img src="assets/images/полонина.jpg" alt="Прогулянка полониною" class="transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="route-content">
+                  <div class="route-meta flex-wrap">
+                    <span class="difficulty-badge difficulty-easy">Легкий</span>
+                    <span class="route-rating">Оцінка користувачів ★ 5</span>
+                  </div>
+                  <div class="route-area">Карпатські полонини</div>
+                  <h3 class="font-heading">Прогулянка полониною</h3>
+                  <p>Неспішна стежка відкритими схилами з краєвидами на карпатські хребти.</p>
+                  <dl class="route-stats">
+                    <div><dt>Відстань</dt><dd>5 км</dd></div>
+                    <div><dt>Набір висоти</dt><dd>200 м</dd></div>
+                    <div><dt>Час</dt><dd>2–3 год</dd></div>
+                  </dl>
+                  <a class="route-button !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="#routes">Переглянути маршрут</a>
+                </div>
+              </article>
+            </li>
+          </ul>
+          <div class="routes-footer">
+            <a class="routes-all-button !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="#routes">Переглянути всі маршрути</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="features" aria-labelledby="features-title">
+        <div class="container">
+          <div class="section-heading">
+            <div class="eyebrow">Параметри підбору</div>
+            <h2 id="features-title">Чотири речі, які визначають маршрут</h2>
+          </div>
+          <ul class="features-grid" id="planner">
+            <li>
+              <article class="feature-card">
+                <img class="feature-icon" src="assets/icons/складність.jpeg" alt="" aria-hidden="true">
+                <h3>Складність</h3>
+                <p>Легкий, середній чи складний — і чому саме так: набір висоти, тип рельєфу, тривалість переходів.</p>
+              </article>
+            </li>
+            <li>
+              <article class="feature-card">
+                <img class="feature-icon" src="assets/icons/тривалість.jpeg" alt="" aria-hidden="true">
+                <h3>Тривалість</h3>
+                <p>Від кількох годин до кількох днів із ночівлями. Показуємо час у дорозі, а не лише кілометри.</p>
+              </article>
+            </li>
+            <li>
+              <article class="feature-card">
+                <img class="feature-icon" src="assets/icons/група.jpeg" alt="" aria-hidden="true">
+                <h3>Склад групи</h3>
+                <p>Скільки вас і з ким ви йдете: з дітьми, з новачками, великою компанією — набір маршрутів від цього змінюється.</p>
+              </article>
+            </li>
+            <li>
+              <article class="feature-card">
+                <img class="feature-icon" src="assets/icons/сезон.jpeg" alt="" aria-hidden="true">
+                <h3>Сезон</h3>
+                <p>Кожен маршрут має період, коли він прохідний, і попередження про сезонні обмеження.</p>
+              </article>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section-muted" id="reviews" aria-labelledby="reviews-title">
+        <div class="container">
+          <div class="section-heading">
+            <div class="eyebrow">Враження мандрівників</div>
+            <h2 id="reviews-title">Що кажуть ті, що вже підкорили вершини</h2>
+            <p>Досвід тих, хто вже знайшов свій маршрут</p>
+          </div>
+          <ul class="reviews-grid">
+            <li>
+              <a class="review-card-link" href="reviews.html">
+                <article class="review-card card-hover max-[640px]:!px-3">
+                  <div class="review-stars" aria-label="5 з 5 зірок">★★★★★</div>
+                  <p>Завдяки зручному чеклісту вперше зібрала рюкзак без паніки і нічого не забула. Маршрут на Озеро Несамовите пройшов ідеально!</p>
+                  <div class="review-profile">
+                    <img class="review-avatar max-[640px]:!h-10 max-[640px]:!w-10 max-[640px]:!basis-10" src="assets/images/аватарка 1.jpg" alt="Олена К.">
+                    <div class="review-identity">
+                      <div class="review-author max-[640px]:!text-sm">Олена К.</div>
+                      <div class="review-note max-[640px]:!text-xs">Маршрут: Озеро Несамовите</div>
+                    </div>
+                  </div>
+                </article>
+              </a>
+            </li>
+            <li>
+              <a class="review-card-link" href="reviews.html">
+                <article class="review-card card-hover max-[640px]:!px-3">
+                  <div class="review-stars" aria-label="5 з 5 зірок">★★★★★</div>
+                  <p>Детальний набір висоти та розрахунок часу допомогли правильно розпланувати день і прийти у табір до темряви.</p>
+                  <div class="review-profile">
+                    <img class="review-avatar max-[640px]:!h-10 max-[640px]:!w-10 max-[640px]:!basis-10" src="assets/images/аватарка 2.jpg" alt="Бодя">
+                    <div class="review-identity">
+                      <div class="review-author max-[640px]:!text-sm">Бодя</div>
+                      <div class="review-note max-[640px]:!text-xs">Маршрут: Озеро Несамовите</div>
+                    </div>
+                  </div>
+                </article>
+              </a>
+            </li>
+            <li>
+              <a class="review-card-link" href="reviews.html">
+                <article class="review-card card-hover max-[640px]:!px-3">
+                  <div class="review-stars" aria-label="4 з 5 зірок">★★★★<span class="review-star-muted" aria-hidden="true">★</span></div>
+                  <p>Чудовий додаток для планування! Маршрут на Шпиці детально розписаний, а чекліст дууже виручив. Зняла одну зірочку лише через те, що в дорозі в пару місць зник інтернет і хотілося б офлайн-карту.</p>
+                  <div class="review-profile">
+                    <img class="review-avatar max-[640px]:!h-10 max-[640px]:!w-10 max-[640px]:!basis-10" src="assets/images/аватарка 3.jpg" alt="Marta">
+                    <div class="review-identity">
+                      <div class="review-author max-[640px]:!text-sm">Marta</div>
+                      <div class="review-note max-[640px]:!text-xs">Маршрут: Гора Шпиці</div>
+                    </div>
+                  </div>
+                </article>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section final-cta" id="checklist" aria-labelledby="cta-title">
+        <div class="container cta-content">
+          <div class="eyebrow">Готові до своєї першої мандрівки?</div>
+          <h2 id="cta-title">Зробіть перший крок до своєї мандрівки Карпатами вже сьогодні</h2>
+          <p>Оберіть напрямок, який надихає, а про підготовку подбаємо разом</p>
+          <div class="button-group">
+            <a class="button button-light !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="planner.html">Підібрати свій похід</a>
+            <a class="button button-outline-light !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="checklist.html">Відкрити чекліст</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer bg-text-primary text-cream">
+      <div class="container footer-content mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 text-left sm:grid-cols-2 sm:px-8 lg:px-10">
+        <div class="footer-brand items-start">
+          <a class="logo footer-logo rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="#main" aria-label="Мій похід — на головну"><img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img"></a>
+          <p class="footer-tagline text-footer-muted">Ваш похід починається з доброго плану</p>
+        </div>
+        <nav class="footer-navigation justify-start" aria-label="Навігація в підвалі">
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="about.html">Про проєкт</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="checklist.html">Чекліст підготовки</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="contacts.html">Контакти</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="reviews.html">Відгуки</a>
+        </nav>
+        <div class="copyright border-t border-alpine-earth pt-6 text-footer-muted sm:col-span-2">© 2026 Мій похід. Бережімо Карпати.</div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    const menuButton = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("header-navigation");
+
+    if (!(menuButton instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) {
+      throw new Error("Не знайдено кнопку або навігацію мобільного меню.");
+    }
+
+    function setMenuOpen(isOpen) {
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Закрити меню" : "Відкрити меню");
+      menu.classList.toggle("hidden", !isOpen);
+      menu.classList.toggle("block", isOpen);
+    }
+
+    menuButton.addEventListener("click", () => {
+      setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+    });
+
+    menu.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("a")) {
+        setMenuOpen(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false);
+        menuButton.focus();
+      }
+    });
+
+    window.matchMedia("(min-width: 768px)").addEventListener("change", () => {
+      setMenuOpen(false);
+    });
+
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const motionVideo = document.querySelector("[data-motion-video]");
+
+    if (!(motionVideo instanceof HTMLVideoElement)) {
+      throw new Error("Не знайдено фонове відео.");
+    }
+
+    function syncVideoMotion() {
+      if (motionPreference.matches) {
+        motionVideo.pause();
+        motionVideo.loop = false;
+        return;
+      }
+
+      motionVideo.loop = true;
+      motionVideo.play().catch((error) => {
+        if (error.name !== "AbortError") {
+          console.warn("Не вдалося автоматично відтворити фонове відео.", error);
+        }
+      });
+    }
+
+    syncVideoMotion();
+    motionPreference.addEventListener("change", syncVideoMotion);
+  </script>
+</body>
+</html>

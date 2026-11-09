@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Підберіть маршрут Карпатами за тривалістю, складністю, складом групи та сезоном.">
+  <title>Підібрати похід — Мій похід</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "deep-moss": "var(--color-primary)",
+            "focus-ring": "var(--color-focus-ring)",
+            cream: "var(--color-bg-base)",
+            "warm-amber": "var(--color-accent)",
+            "alpine-earth": "var(--color-secondary)",
+            "text-primary": "var(--color-text-primary)",
+            "text-muted": "var(--color-text-muted)",
+            "footer-muted": "var(--color-footer-muted)",
+            "surface-muted": "var(--color-surface-muted)"
+          },
+          fontFamily: {
+            body: "var(--font-body)"
+          },
+          minHeight: {
+            header: "var(--header-min-height)"
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-body text-text-primary">
+  <div class="page">
+    <header class="site-header">
+      <div class="container relative flex min-h-header flex-wrap items-center justify-between gap-4 md:flex-nowrap">
+        <a
+          class="logo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-moss"
+          href="index.html#main"
+          aria-label="Мій похід — на головну"
+        >
+          <img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img">
+        </a>
+
+        <nav
+          id="header-navigation"
+          class="header-navigation order-last hidden w-full py-3 md:order-none md:flex md:w-auto md:items-center md:gap-6 md:py-0"
+          aria-label="Головна навігація"
+        >
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="about.html"
+          >Про проєкт</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="checklist.html"
+          >Чекліст підготовки</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="contacts.html"
+          >Контакти</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="reviews.html"
+          >Відгуки</a>
+        </nav>
+
+        <button
+          id="mobile-menu-toggle"
+          class="order-2 flex items-center justify-center rounded-lg p-2 text-text-primary hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:hidden"
+          type="button"
+          aria-label="Відкрити меню"
+          aria-controls="header-navigation"
+          aria-expanded="false"
+        >
+          <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <a
+          class="button button-small order-3 !hidden !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 md:!inline-flex"
+          href="planner.html"
+        >Підібрати свій похід</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="planner-section" aria-labelledby="planner-title">
+        <div class="container">
+          <header class="planner-heading">
+            <h1 id="planner-title">Знайдіть свій ідеальний маршрут Карпатами</h1>
+            <p>Налаштуйте параметри під вашу групу та досвід, а ми підберемо найкращі варіанти</p>
+          </header>
+
+          <div class="planner-layout">
+            <form class="planner-form" id="planner-form">
+              <div class="planner-fields">
+                <div class="planner-field">
+                  <label for="group-size">Розмір групи</label>
+                  <div class="planner-select-wrap">
+                    <select class="planner-select" id="group-size" name="group" required>
+                      <option value="" selected disabled>Оберіть розмір групи</option>
+                      <option value="1">1 людина</option>
+                      <option value="2-4">2–4 людини</option>
+                      <option value="5-8">5–8 людей</option>
+                      <option value="9+">9 і більше людей</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="planner-field">
+                  <label for="duration">Тривалість</label>
+                  <div class="planner-select-wrap">
+                    <select class="planner-select" id="duration" name="duration" required>
+                      <option value="" selected disabled>Оберіть тривалість</option>
+                      <option value="1">1 день</option>
+                      <option value="2">2 дні</option>
+                      <option value="3-4">3–4 дні</option>
+                      <option value="5+">5 і більше днів</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="planner-field">
+                  <label for="difficulty">Складність</label>
+                  <div class="planner-select-wrap">
+                    <select class="planner-select" id="difficulty" name="difficulty" required>
+                      <option value="" selected disabled>Оберіть складність</option>
+                      <option value="easy">Легка</option>
+                      <option value="medium">Середня</option>
+                      <option value="hard">Складна</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="planner-field">
+                  <label for="season">Сезон</label>
+                  <div class="planner-select-wrap">
+                    <select class="planner-select" id="season" name="season" required>
+                      <option value="" selected disabled>Оберіть сезон</option>
+                      <option value="spring">Весна</option>
+                      <option value="summer">Літо</option>
+                      <option value="autumn">Осінь</option>
+                      <option value="winter">Зима</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <button class="button planner-submit !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="submit">Знайти маршрути</button>
+              <p class="planner-note">У каталозі поки немає даних про рекомендований розмір групи та сезон. Ці параметри не впливають на фільтр.</p>
+            </form>
+
+            <div class="planner-image">
+              <video data-motion-video muted playsinline aria-label="Стежка серед гір і хвойного лісу в Карпатах">
+                <source src="assets/images/відео2.mp4" type="video/mp4">
+                Ваш браузер не підтримує відтворення відео.
+              </video>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer bg-text-primary text-cream">
+      <div class="container footer-content mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 text-left sm:grid-cols-2 sm:px-8 lg:px-10">
+        <div class="footer-brand items-start">
+          <a class="logo footer-logo rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="index.html#main" aria-label="Мій похід — на головну"><img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img"></a>
+          <p class="footer-tagline text-footer-muted">Ваш похід починається з доброго плану</p>
+        </div>
+        <nav class="footer-navigation justify-start" aria-label="Навігація в підвалі">
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="about.html">Про проєкт</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="checklist.html">Чекліст підготовки</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="contacts.html">Контакти</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="reviews.html">Відгуки</a>
+        </nav>
+        <div class="copyright border-t border-alpine-earth pt-6 text-footer-muted sm:col-span-2">© 2026 Мій похід. Бережімо Карпати.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const menuButton = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("header-navigation");
+
+    if (!(menuButton instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) {
+      throw new Error("Не знайдено кнопку або навігацію мобільного меню.");
+    }
+
+    function setMenuOpen(isOpen) {
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Закрити меню" : "Відкрити меню");
+      menu.classList.toggle("hidden", !isOpen);
+      menu.classList.toggle("block", isOpen);
+    }
+
+    menuButton.addEventListener("click", () => {
+      setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+    });
+
+    menu.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("a")) {
+        setMenuOpen(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false);
+        menuButton.focus();
+      }
+    });
+
+    window.matchMedia("(min-width: 768px)").addEventListener("change", () => {
+      setMenuOpen(false);
+    });
+
+    const plannerForm = document.getElementById("planner-form");
+
+    if (!(plannerForm instanceof HTMLFormElement)) {
+      throw new Error("Не вдалося ініціалізувати форму підбору маршрутів.");
+    }
+
+    plannerForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+    });
+
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const motionVideo = document.querySelector("[data-motion-video]");
+
+    if (!(motionVideo instanceof HTMLVideoElement)) {
+      throw new Error("Не знайдено відео для планувальника.");
+    }
+
+    function syncVideoMotion() {
+      if (motionPreference.matches) {
+        motionVideo.pause();
+        motionVideo.loop = false;
+        return;
+      }
+
+      motionVideo.loop = true;
+      motionVideo.play().catch((error) => {
+        if (error.name !== "AbortError") {
+          console.warn("Не вдалося автоматично відтворити відео планувальника.", error);
+        }
+      });
+    }
+
+    syncVideoMotion();
+    motionPreference.addEventListener("change", syncVideoMotion);
+  </script>
+</body>
+</html>

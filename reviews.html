@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Враження мандрівників, їхні історії та поради про походи в Карпатах.">
+  <title>Відгуки — Мій похід</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "deep-moss": "var(--color-primary)",
+            "focus-ring": "var(--color-focus-ring)",
+            cream: "var(--color-bg-base)",
+            "warm-amber": "var(--color-accent)",
+            "text-primary": "var(--color-text-primary)",
+            "text-muted": "var(--color-text-muted)",
+            "footer-muted": "var(--color-footer-muted)",
+            "surface-muted": "var(--color-surface-muted)"
+          },
+          fontFamily: {
+            body: "var(--font-body)"
+          },
+          minHeight: {
+            header: "var(--header-min-height)"
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-body text-text-primary">
+  <div class="page">
+    <header class="site-header">
+      <div class="container relative flex min-h-header flex-wrap items-center justify-between gap-4 md:flex-nowrap">
+        <a
+          class="logo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-moss"
+          href="index.html#main"
+          aria-label="Мій похід — на головну"
+        >
+          <img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img">
+        </a>
+
+        <nav
+          id="header-navigation"
+          class="header-navigation order-last hidden w-full py-3 md:order-none md:flex md:w-auto md:items-center md:gap-6 md:py-0"
+          aria-label="Головна навігація"
+        >
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="about.html"
+          >Про проєкт</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="checklist.html"
+          >Чекліст підготовки</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="contacts.html"
+          >Контакти</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="reviews.html"
+            aria-current="page"
+          >Відгуки</a>
+        </nav>
+
+        <button
+          id="mobile-menu-toggle"
+          class="order-2 flex items-center justify-center rounded-lg p-2 text-text-primary hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:hidden"
+          type="button"
+          aria-label="Відкрити меню"
+          aria-controls="header-navigation"
+          aria-expanded="false"
+        >
+          <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <a
+          class="button button-small order-3 !hidden !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 md:!inline-flex"
+          href="planner.html"
+        >Підібрати свій похід</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="reviews-page-section" aria-labelledby="reviews-page-title">
+        <div class="container">
+          <header class="reviews-page-heading">
+            <h1 id="reviews-page-title">Враження, якими хочеться поділитися</h1>
+            <p>Реальні історії мандрівників, фотографії з маршрутів і поради тих, хто вже побував у горах</p>
+          </header>
+
+          <div class="reviews-page-layout">
+            <section class="review-form-card" aria-labelledby="review-form-title">
+              <h2 id="review-form-title">Поділися своїми враженнями</h2>
+              <p class="review-form-intro">Твоя історія може допомогти комусь відкрити Карпати</p>
+
+              <form class="review-form" id="review-form">
+                <div class="review-form-field">
+                  <label for="review-type">Тип відгуку</label>
+                  <select class="review-control" id="review-type" name="type">
+                    <option value="route">Відгук про маршрут</option>
+                    <option value="general">Загальний відгук</option>
+                  </select>
+                </div>
+
+                <div class="review-form-field" id="review-route-field">
+                  <label for="review-route">Маршрут</label>
+                  <select class="review-control" id="review-route" name="route" required>
+                    <option value="" selected disabled>Оберіть маршрут</option>
+                    <option value="Озеро Несамовите">Озеро Несамовите</option>
+                    <option value="Гора Шпиці">Гора Шпиці</option>
+                    <option value="Прогулянка полониною">Прогулянка полониною</option>
+                  </select>
+                </div>
+
+                <fieldset class="review-form-field review-rating-field">
+                  <legend>Оцінка</legend>
+                  <div class="review-rating" role="radiogroup" aria-label="Оцінка від 1 до 5 зірок">
+                    <input class="review-rating-input" id="review-rating-1" type="radio" name="rating" value="1" required>
+                    <label for="review-rating-1" aria-label="1 з 5 зірок">★</label>
+                    <input class="review-rating-input" id="review-rating-2" type="radio" name="rating" value="2">
+                    <label for="review-rating-2" aria-label="2 з 5 зірок">★</label>
+                    <input class="review-rating-input" id="review-rating-3" type="radio" name="rating" value="3">
+                    <label for="review-rating-3" aria-label="3 з 5 зірок">★</label>
+                    <input class="review-rating-input" id="review-rating-4" type="radio" name="rating" value="4">
+                    <label for="review-rating-4" aria-label="4 з 5 зірок">★</label>
+                    <input class="review-rating-input" id="review-rating-5" type="radio" name="rating" value="5">
+                    <label for="review-rating-5" aria-label="5 з 5 зірок">★</label>
+                  </div>
+                </fieldset>
+
+                <div class="review-form-field">
+                  <label for="review-text">Текст відгуку</label>
+                  <textarea class="review-control review-textarea" id="review-text" name="text" placeholder="Розкажи про свої враження..." required></textarea>
+                </div>
+
+                <div class="review-form-field">
+                  <label for="review-photos">Фотографії</label>
+                  <input class="review-control review-photo-input" id="review-photos" name="photos" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" multiple>
+                  <span class="review-photo-help">Можна вибрати кілька зображень JPG, PNG або WebP.</span>
+                  <div class="review-photo-preview" id="review-photo-preview" aria-label="Вибрані фотографії"></div>
+                  <p class="review-photo-status" id="review-photo-status" role="status" aria-live="polite"></p>
+                </div>
+
+                <button class="review-submit-button !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="submit">Опублікувати відгук</button>
+                <p class="review-form-status" id="review-form-status" role="status" aria-live="polite"></p>
+              </form>
+            </section>
+
+            <section class="review-gallery" aria-labelledby="review-gallery-title">
+              <h2 class="review-gallery-title" id="review-gallery-title">Історії мандрівників</h2>
+              <div class="review-gallery-list" id="review-gallery-list">
+                <article class="review-gallery-card" data-review-id="olena">
+                  <div class="review-gallery-card-content">
+                    <div class="review-gallery-card-top">
+                      <div class="review-gallery-stars" aria-label="5 з 5 зірок">★★★★★</div>
+                      <button class="review-like-button !transition-all !duration-200 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="button" aria-pressed="false" aria-label="Вподобати відгук Олени К.">
+                        <span class="review-like-heart" aria-hidden="true">♡</span>
+                        <span class="review-like-count" aria-label="Кількість вподобань">0</span>
+                      </button>
+                    </div>
+                    <p class="review-gallery-text">Завдяки зручному чеклісту вперше зібрала рюкзак без паніки і нічого не забула. Маршрут на Озеро Несамовите пройшов ідеально!</p>
+                    <div class="review-gallery-author">Олена К.</div>
+                    <div class="review-gallery-route">Маршрут: Озеро Несамовите</div>
+                  </div>
+                </article>
+
+                <article class="review-gallery-card" data-review-id="bodja">
+                  <div class="review-photo-grid review-photo-grid-single" aria-label="Фотографія з маршруту до озера Несамовите">
+                    <button class="review-photo-button !transition-all !duration-200 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="button" data-full-image="assets/reviews/бодя_відгук.jpg" aria-label="Збільшити фотографію з маршруту до озера Несамовите">
+                      <img src="assets/reviews/бодя_відгук.jpg" alt="Мандрівники на карпатській полонині" loading="lazy">
+                    </button>
+                  </div>
+                  <div class="review-gallery-card-content">
+                    <div class="review-gallery-card-top">
+                      <div class="review-gallery-stars" aria-label="5 з 5 зірок">★★★★★</div>
+                      <button class="review-like-button !transition-all !duration-200 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="button" aria-pressed="false" aria-label="Вподобати відгук Боді">
+                        <span class="review-like-heart" aria-hidden="true">♡</span>
+                        <span class="review-like-count" aria-label="Кількість вподобань">0</span>
+                      </button>
+                    </div>
+                    <p class="review-gallery-text">Детальний набір висоти та розрахунок часу допомогли правильно розпланувати день і прийти у табір до темряви.</p>
+                    <div class="review-gallery-author">Бодя</div>
+                    <div class="review-gallery-route">Маршрут: Озеро Несамовите</div>
+                  </div>
+                </article>
+
+                <article class="review-gallery-card" data-review-id="marta">
+                  <div class="review-photo-grid" aria-label="Фотографії з маршруту на гору Шпиці">
+                    <button class="review-photo-button !transition-all !duration-200 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="button" data-full-image="assets/reviews/шпиці_відгук1.jpg" aria-label="Збільшити фотографію з краєвидом біля гори Шпиці">
+                      <img src="assets/reviews/шпиці_відгук1.jpg" alt="Скелі та гірські краєвиди на маршруті до Шпиць" loading="lazy">
+                    </button>
+                    <button class="review-photo-button !transition-all !duration-200 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="button" data-full-image="assets/reviews/шпиці_відгук2.jpg" aria-label="Збільшити фотографію на вершині Шпиць">
+                      <img src="assets/reviews/шпиці_відгук2.jpg" alt="Мандрівниця біля позначки вершини Шпиці" loading="lazy">
+                    </button>
+                  </div>
+                  <div class="review-gallery-card-content">
+                    <div class="review-gallery-card-top">
+                      <div class="review-gallery-stars" aria-label="4 з 5 зірок">★★★★<span aria-hidden="true">★</span></div>
+                      <button class="review-like-button !transition-all !duration-200 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="button" aria-pressed="false" aria-label="Вподобати відгук Marta">
+                        <span class="review-like-heart" aria-hidden="true">♡</span>
+                        <span class="review-like-count" aria-label="Кількість вподобань">0</span>
+                      </button>
+                    </div>
+                    <p class="review-gallery-text">Чудовий додаток для планування! Маршрут на Шпиці детально розписаний, а чекліст дууже виручив. Зняла одну зірочку лише через те, що в дорозі в пару місць зник інтернет і хотілося б офлайн-карту.</p>
+                    <div class="review-gallery-author">Marta</div>
+                    <div class="review-gallery-route">Маршрут: Гора Шпиці</div>
+                  </div>
+                </article>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="review-lightbox" id="review-lightbox" aria-label="Збільшена фотографія">
+      <button class="review-lightbox-close !transition-all !duration-200 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="button" aria-label="Закрити фотографію">×</button>
+      <img class="review-lightbox-image" id="review-lightbox-image" alt="">
+    </dialog>
+
+    <footer id="footer" class="site-footer bg-text-primary text-cream">
+      <div class="container footer-content mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 text-left sm:grid-cols-2 sm:px-8 lg:px-10">
+        <div class="footer-brand items-start">
+          <a class="logo footer-logo rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="index.html#main" aria-label="Мій похід — на головну"><img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img"></a>
+          <p class="footer-tagline text-footer-muted">Ваш похід починається з доброго плану</p>
+        </div>
+        <nav class="footer-navigation justify-start" aria-label="Навігація в підвалі">
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="about.html">Про проєкт</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="checklist.html">Чекліст підготовки</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="contacts.html">Контакти</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="reviews.html" aria-current="page">Відгуки</a>
+        </nav>
+        <div class="copyright border-t border-alpine-earth pt-6 text-footer-muted sm:col-span-2">© 2026 Мій похід. Бережімо Карпати.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const menuButton = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("header-navigation");
+
+    if (!(menuButton instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) {
+      throw new Error("Не знайдено кнопку або навігацію мобільного меню.");
+    }
+
+    function setMenuOpen(isOpen) {
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Закрити меню" : "Відкрити меню");
+      menu.classList.toggle("hidden", !isOpen);
+      menu.classList.toggle("block", isOpen);
+    }
+
+    menuButton.addEventListener("click", () => {
+      setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+    });
+
+    menu.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("a")) {
+        setMenuOpen(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false);
+        menuButton.focus();
+      }
+    });
+
+    window.matchMedia("(min-width: 768px)").addEventListener("change", () => {
+      setMenuOpen(false);
+    });
+
+    const reviewType = document.getElementById("review-type");
+    const routeField = document.getElementById("review-route-field");
+    const routeSelect = document.getElementById("review-route");
+    const reviewForm = document.getElementById("review-form");
+    const reviewGallery = document.getElementById("review-gallery-list");
+    const reviewFormStatus = document.getElementById("review-form-status");
+    const photoInput = document.getElementById("review-photos");
+    const photoPreview = document.getElementById("review-photo-preview");
+    const photoStatus = document.getElementById("review-photo-status");
+    const lightbox = document.getElementById("review-lightbox");
+    const lightboxImage = document.getElementById("review-lightbox-image");
+    const lightboxClose = document.querySelector(".review-lightbox-close");
+
+    if (!(reviewType instanceof HTMLSelectElement)
+      || !(routeField instanceof HTMLElement)
+      || !(routeSelect instanceof HTMLSelectElement)
+      || !(reviewForm instanceof HTMLFormElement)
+      || !(reviewGallery instanceof HTMLElement)
+      || !(reviewFormStatus instanceof HTMLElement)
+      || !(photoInput instanceof HTMLInputElement)
+      || !(photoPreview instanceof HTMLElement)
+      || !(photoStatus instanceof HTMLElement)
+      || !(lightbox instanceof HTMLDialogElement)
+      || !(lightboxImage instanceof HTMLImageElement)
+      || !(lightboxClose instanceof HTMLButtonElement)) {
+      throw new Error("Не вдалося ініціалізувати форму відгуку.");
+    }
+
+    const acceptedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
+    const selectedPhotos = [];
+    const activePhotoUrls = new Set();
+    let isProcessingPhotos = false;
+
+    function revokePhotoUrl(url) {
+      URL.revokeObjectURL(url);
+      activePhotoUrls.delete(url);
+    }
+
+    function createPhotoButton({ url, alt }) {
+      const button = document.createElement("button");
+      button.className = "review-photo-button";
+      button.type = "button";
+      button.dataset.fullImage = url;
+      button.setAttribute("aria-label", `Збільшити фотографію: ${alt}`);
+
+      const image = document.createElement("img");
+      image.src = url;
+      image.alt = alt;
+      image.loading = "lazy";
+      button.append(image);
+      return button;
+    }
+
+    function renderPhotoPreview() {
+      const fragment = document.createDocumentFragment();
+      selectedPhotos.forEach((photo, index) => {
+        const item = document.createElement("div");
+        item.className = "review-photo-preview-item";
+        item.append(createPhotoButton({
+          url: photo.url,
+          alt: photo.file.name
+        }));
+
+        const removeButton = document.createElement("button");
+        removeButton.className = "review-photo-remove";
+        removeButton.type = "button";
+        removeButton.dataset.photoIndex = String(index);
+        removeButton.setAttribute("aria-label", `Видалити фотографію ${photo.file.name}`);
+        removeButton.textContent = "×";
+        item.append(removeButton);
+        fragment.append(item);
+      });
+      photoPreview.replaceChildren(fragment);
+      photoPreview.hidden = selectedPhotos.length === 0;
+    }
+
+    async function validatePhotoFile(file) {
+      if (!acceptedImageTypes.has(file.type)) {
+        throw new Error(`${file.name}: виберіть файл JPG, PNG або WebP.`);
+      }
+
+      const url = URL.createObjectURL(file);
+      activePhotoUrls.add(url);
+      try {
+        const image = new Image();
+        image.src = url;
+        await image.decode();
+        return { file, url };
+      } catch {
+        revokePhotoUrl(url);
+        throw new Error(`${file.name}: не вдалося прочитати зображення.`);
+      }
+    }
+
+    photoInput.addEventListener("change", async () => {
+      const files = Array.from(photoInput.files ?? []);
+      photoInput.value = "";
+      if (files.length === 0) {
+        return;
+      }
+
+      isProcessingPhotos = true;
+      photoInput.disabled = true;
+      const errors = [];
+      for (const file of files) {
+        try {
+          selectedPhotos.push(await validatePhotoFile(file));
+        } catch (error) {
+          errors.push(error instanceof Error ? error.message : `Не вдалося прочитати файл ${file.name}.`);
+        }
+      }
+      photoInput.disabled = false;
+      isProcessingPhotos = false;
+      renderPhotoPreview();
+      photoStatus.textContent = [
+        selectedPhotos.length > 0 ? `${selectedPhotos.length} фото вибрано.` : "",
+        ...errors
+      ].filter(Boolean).join(" ");
+    });
+
+    photoPreview.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) {
+        return;
+      }
+      const button = event.target.closest(".review-photo-remove");
+      const index = Number(button?.getAttribute("data-photo-index"));
+      if (!(button instanceof HTMLButtonElement) || !Number.isInteger(index) || index < 0 || index >= selectedPhotos.length) {
+        return;
+      }
+
+      const [removedPhoto] = selectedPhotos.splice(index, 1);
+      revokePhotoUrl(removedPhoto.url);
+      renderPhotoPreview();
+      photoStatus.textContent = selectedPhotos.length > 0
+        ? `${selectedPhotos.length} фото вибрано.`
+        : "Усі вибрані фотографії видалено.";
+    });
+
+    window.addEventListener("pagehide", () => {
+      activePhotoUrls.forEach((url) => URL.revokeObjectURL(url));
+      activePhotoUrls.clear();
+    });
+
+    function updateRouteField() {
+      const isRouteReview = reviewType.value === "route";
+      routeField.hidden = !isRouteReview;
+      routeSelect.required = isRouteReview;
+      if (!isRouteReview) {
+        routeSelect.value = "";
+      }
+    }
+
+    reviewType.addEventListener("change", updateRouteField);
+    updateRouteField();
+
+    reviewGallery.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) {
+        return;
+      }
+      const photoButton = event.target.closest(".review-photo-button");
+      if (!(photoButton instanceof HTMLButtonElement)) {
+        return;
+      }
+      const image = photoButton.querySelector("img");
+      const fullImage = photoButton.getAttribute("data-full-image");
+      if (!(image instanceof HTMLImageElement) || !fullImage) {
+        throw new Error("Не вдалося відкрити фотографію відгуку.");
+      }
+      lightboxImage.src = fullImage;
+      lightboxImage.alt = image.alt;
+      lightbox.showModal();
+      lightboxClose.focus();
+    });
+
+    lightboxClose.addEventListener("click", () => lightbox.close());
+    lightbox.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      lightbox.close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.open) {
+        lightbox.close();
+      }
+    });
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        lightbox.close();
+      }
+    });
+    lightbox.addEventListener("close", () => {
+      lightboxImage.removeAttribute("src");
+      lightboxImage.alt = "";
+    });
+
+    function updateLikeButton(button, isLiked) {
+      const heart = button.querySelector(".review-like-heart");
+      const count = button.querySelector(".review-like-count");
+      const author = button.closest(".review-gallery-card")?.querySelector(".review-gallery-author")?.textContent;
+      if (!(heart instanceof HTMLElement) || !(count instanceof HTMLElement)) {
+        throw new Error("Не вдалося оновити стан вподобання.");
+      }
+      button.setAttribute("aria-pressed", String(isLiked));
+      button.setAttribute("aria-label", `${isLiked ? "Прибрати вподобання" : "Вподобати"} відгук ${author ?? ""}`.trim());
+      heart.textContent = isLiked ? "♥" : "♡";
+      count.textContent = isLiked ? "1" : "0";
+    }
+
+    reviewGallery.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) {
+        return;
+      }
+      const button = event.target.closest(".review-like-button");
+      const card = button?.closest(".review-gallery-card");
+      const reviewId = card?.getAttribute("data-review-id");
+      if (!(button instanceof HTMLButtonElement) || !reviewId) {
+        return;
+      }
+      const isLiked = button.getAttribute("aria-pressed") !== "true";
+      updateLikeButton(button, isLiked);
+      try {
+        const likes = JSON.parse(localStorage.getItem("miypokhid-review-likes") || "{}");
+        if (isLiked) {
+          likes[reviewId] = true;
+        } else {
+          delete likes[reviewId];
+        }
+        localStorage.setItem("miypokhid-review-likes", JSON.stringify(likes));
+      } catch (error) {
+        reviewFormStatus.textContent = error instanceof Error
+          ? `Лайк змінено, але не вдалося зберегти його у браузері: ${error.message}`
+          : "Лайк змінено, але не вдалося зберегти його у браузері.";
+      }
+    });
+
+    try {
+      const likes = JSON.parse(localStorage.getItem("miypokhid-review-likes") || "{}");
+      reviewGallery.querySelectorAll(".review-gallery-card[data-review-id]").forEach((card) => {
+        const id = card.getAttribute("data-review-id");
+        const button = card.querySelector(".review-like-button");
+        if (id && button instanceof HTMLButtonElement && likes[id] === true) {
+          updateLikeButton(button, true);
+        }
+      });
+    } catch (error) {
+      reviewFormStatus.textContent = error instanceof Error
+        ? `Не вдалося завантажити збережені вподобання: ${error.message}`
+        : "Не вдалося завантажити збережені вподобання.";
+    }
+
+    function createReviewCardContent({ text, rating, route }) {
+      const content = document.createElement("div");
+      content.className = "review-gallery-card-content";
+      const top = document.createElement("div");
+      top.className = "review-gallery-card-top";
+
+      const stars = document.createElement("div");
+      stars.className = "review-gallery-stars";
+      stars.setAttribute("aria-label", `${rating} з 5 зірок`);
+      stars.append(document.createTextNode("★".repeat(rating)));
+      if (rating < 5) {
+        const mutedStars = document.createElement("span");
+        mutedStars.setAttribute("aria-hidden", "true");
+        mutedStars.textContent = "★".repeat(5 - rating);
+        stars.append(mutedStars);
+      }
+
+      const likeButton = document.createElement("button");
+      likeButton.className = "review-like-button";
+      likeButton.type = "button";
+      likeButton.setAttribute("aria-pressed", "false");
+      likeButton.setAttribute("aria-label", "Вподобати ваш відгук");
+      likeButton.innerHTML = '<span class="review-like-heart" aria-hidden="true">♡</span><span class="review-like-count" aria-label="Кількість вподобань">0</span>';
+      top.append(stars, likeButton);
+
+      const body = document.createElement("p");
+      body.className = "review-gallery-text";
+      body.textContent = text;
+
+      const author = document.createElement("div");
+      author.className = "review-gallery-author";
+      author.textContent = "Ваш відгук";
+
+      content.append(top, body, author);
+      if (route) {
+        const routeNote = document.createElement("div");
+        routeNote.className = "review-gallery-route";
+        routeNote.textContent = `Маршрут: ${route}`;
+        content.append(routeNote);
+      }
+      return content;
+    }
+
+    function createReviewCard({ text, rating, route, photos }) {
+      const card = document.createElement("article");
+      card.className = "review-gallery-card review-gallery-card-new";
+      card.dataset.reviewId = `local-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+      if (photos.length > 0) {
+        const photoGrid = document.createElement("div");
+        photoGrid.className = `review-photo-grid${photos.length === 1 ? " review-photo-grid-single" : ""}`;
+        photoGrid.setAttribute("aria-label", "Фотографії до відгуку");
+        photos.forEach((photo, index) => {
+          photoGrid.append(createPhotoButton({
+            url: photo.url,
+            alt: `${photo.file.name}, фотографія ${index + 1}`
+          }));
+        });
+        card.append(photoGrid);
+      }
+
+      const content = createReviewCardContent({ text, rating, route });
+      card.append(content);
+      return card;
+    }
+
+    reviewForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (isProcessingPhotos) {
+        photoStatus.textContent = "Зачекайте, поки вибрані фотографії перевіряться.";
+        return;
+      }
+      if (!reviewForm.reportValidity()) {
+        return;
+      }
+
+      const formData = new FormData(reviewForm);
+      const rating = Number(formData.get("rating"));
+      const text = String(formData.get("text") || "").trim();
+      const route = reviewType.value === "route" ? String(formData.get("route") || "") : "";
+
+      if (!Number.isInteger(rating) || rating < 1 || rating > 5 || !text || (reviewType.value === "route" && !route)) {
+        reviewFormStatus.textContent = "Перевірте обов'язкові поля форми.";
+        return;
+      }
+
+      const photos = selectedPhotos.slice();
+      const newCard = createReviewCard({ text, rating, route, photos });
+      reviewGallery.prepend(newCard);
+      selectedPhotos.length = 0;
+      renderPhotoPreview();
+      photoStatus.textContent = "";
+      reviewForm.reset();
+      updateRouteField();
+      reviewFormStatus.textContent = "Відгук додано до галереї на цій сторінці.";
+      newCard.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  </script>
+</body>
+</html>

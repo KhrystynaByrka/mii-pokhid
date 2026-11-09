@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Зв'яжіться з командою Мій похід щодо маршрутів, співпраці та пропозицій.">
+  <title>Контакти — Мій похід</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "deep-moss": "var(--color-primary)",
+            cream: "var(--color-bg-base)",
+            "warm-amber": "var(--color-accent)",
+            "text-primary": "var(--color-text-primary)",
+            "text-muted": "var(--color-text-muted)",
+            "footer-muted": "var(--color-footer-muted)",
+            "surface-muted": "var(--color-surface-muted)"
+          },
+          fontFamily: {
+            body: "var(--font-body)"
+          },
+          minHeight: {
+            header: "var(--header-min-height)"
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="font-body text-text-primary">
+  <div class="page">
+    <header class="site-header">
+      <div class="container relative flex min-h-header flex-wrap items-center justify-between gap-4 md:flex-nowrap">
+        <a
+          class="logo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-moss"
+          href="index.html#main"
+          aria-label="Мій похід — на головну"
+        >
+          <img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img">
+        </a>
+
+        <nav
+          id="header-navigation"
+          class="header-navigation order-last hidden w-full py-3 md:order-none md:flex md:w-auto md:items-center md:gap-6 md:py-0"
+          aria-label="Головна навігація"
+        >
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="about.html"
+          >Про проєкт</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="checklist.html"
+          >Чекліст підготовки</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="contacts.html"
+            aria-current="page"
+          >Контакти</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="reviews.html"
+          >Відгуки</a>
+        </nav>
+
+        <button
+          id="mobile-menu-toggle"
+          class="order-2 flex items-center justify-center rounded-lg p-2 text-text-primary hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:hidden"
+          type="button"
+          aria-label="Відкрити меню"
+          aria-controls="header-navigation"
+          aria-expanded="false"
+        >
+          <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <a
+          class="button button-small order-3 !hidden !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 md:!inline-flex"
+          href="planner.html"
+        >Підібрати свій похід</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="contact-section" aria-labelledby="contact-title">
+        <div class="container">
+          <h1 class="contact-title" id="contact-title">Зв'яжіться з нами</h1>
+
+          <div class="contact-layout">
+            <section class="contact-card contact-form-card" aria-label="Форма зворотного зв'язку">
+              <p class="contact-intro">Маєте запитання щодо маршруту, пропозицію співпраці чи хочете поділитися відгуком? Напишіть нам!</p>
+
+              <form class="contact-form" id="contact-form">
+                <div class="contact-fields">
+                  <div class="contact-field">
+                    <label for="contact-name">Ваше ім'я</label>
+                    <input class="contact-control" id="contact-name" name="name" type="text" autocomplete="name" placeholder="Ваше ім'я" required>
+                  </div>
+                  <div class="contact-field">
+                    <label for="contact-email">Email</label>
+                    <input class="contact-control" id="contact-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
+                  </div>
+                  <div class="contact-field contact-field-full">
+                    <label class="contact-visually-hidden" for="contact-subject">Тема звернення</label>
+                    <select class="contact-control" id="contact-subject" name="subject" required>
+                      <option value="" selected disabled>Тема звернення</option>
+                      <option value="feedback">Відгук</option>
+                      <option value="cooperation">Співпраця</option>
+                      <option value="suggestion">Пропозиція</option>
+                      <option value="question">Запитання</option>
+                    </select>
+                  </div>
+                  <div class="contact-field contact-field-full">
+                    <label class="contact-visually-hidden" for="contact-message">Повідомлення</label>
+                    <textarea class="contact-control contact-message" id="contact-message" name="message" placeholder="Повідомлення" required></textarea>
+                  </div>
+                </div>
+
+                <div class="contact-form-actions">
+                  <p class="contact-form-status" id="contact-form-status" role="status" aria-live="polite"></p>
+                  <button class="button contact-submit !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="submit">Надіслати</button>
+                </div>
+              </form>
+            </section>
+
+            <aside class="contact-card contact-info-card" aria-labelledby="contact-info-title">
+              <h2 id="contact-info-title">Контакти</h2>
+              <address class="contact-details">
+                <a class="contact-detail" href="tel:+380936078058">
+                  <img src="assets/icons.contacts/іконка_телефон2.png" alt="" aria-hidden="true">
+                  <span>+380 93 607 8058</span>
+                </a>
+                <a class="contact-detail" href="mailto:info@miypokhid.ua">
+                  <img src="assets/icons.contacts/іконка_пошта2.png" alt="" aria-hidden="true">
+                  <span>info@miypokhid.ua</span>
+                </a>
+              </address>
+
+              <h3 class="contact-social-title"><span>Ми у соціальних</span><span>мережах</span></h3>
+              <ul class="contact-social-list" aria-label="Соціальні мережі">
+                <li>
+                  <a class="contact-social-link" href="https://www.instagram.com/" aria-label="Instagram — сторінка мережі, профіль Мій похід ще не вказано">
+                    <img src="assets/icons.contacts/іконка_інстаграм2.png" alt="">
+                  </a>
+                </li>
+                <li>
+                  <a class="contact-social-link" href="https://www.facebook.com/" aria-label="Facebook — сторінка мережі, профіль Мій похід ще не вказано">
+                    <img src="assets/icons.contacts/іконка_фейсбук2.png" alt="">
+                  </a>
+                </li>
+                <li>
+                  <a class="contact-social-link" href="https://t.me/" aria-label="Telegram — сторінка мережі, профіль Мій похід ще не вказано">
+                    <img src="assets/icons.contacts/іконка_телеграм2.png" alt="">
+                  </a>
+                </li>
+              </ul>
+
+              <section class="contact-map" aria-labelledby="contact-map-title">
+                <h3 class="contact-map-title" id="contact-map-title">Ми на карті</h3>
+                <div class="contact-map-frame">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5815.464135067692!2d24.015710718661207!3d49.836633825643396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x473add7a31f0dccd%3A0x9869cc7025bc8e3f!2z0J3QsNGG0ZbQvtC90LDQu9GM0L3QuNC5INGD0L3RltCy0LXRgNGB0LjRgtC10YIgItCb0YzQstGW0LLRgdGM0LrQsCDQn9C-0LvRltGC0LXRhdC90ZbQutCwIg!5e0!3m2!1suk!2sua!4v1794135686985!5m2!1suk!2sua" title="Карта розташування Львівської політехніки" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer bg-text-primary text-cream">
+      <div class="container footer-content mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 text-left sm:grid-cols-2 sm:px-8 lg:px-10">
+        <div class="footer-brand items-start">
+          <a class="logo footer-logo rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="index.html#main" aria-label="Мій похід — на головну"><img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img"></a>
+          <p class="footer-tagline text-footer-muted">Ваш похід починається з доброго плану</p>
+        </div>
+        <nav class="footer-navigation justify-start" aria-label="Навігація в підвалі">
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="about.html">Про проєкт</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="checklist.html">Чекліст підготовки</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="contacts.html">Контакти</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="reviews.html">Відгуки</a>
+        </nav>
+        <div class="copyright border-t border-alpine-earth pt-6 text-footer-muted sm:col-span-2">© 2026 Мій похід. Бережімо Карпати.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const menuButton = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("header-navigation");
+
+    if (!(menuButton instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) {
+      throw new Error("Не знайдено кнопку або навігацію мобільного меню.");
+    }
+
+    function setMenuOpen(isOpen) {
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Закрити меню" : "Відкрити меню");
+      menu.classList.toggle("hidden", !isOpen);
+      menu.classList.toggle("block", isOpen);
+    }
+
+    menuButton.addEventListener("click", () => {
+      setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+    });
+
+    menu.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("a")) {
+        setMenuOpen(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false);
+        menuButton.focus();
+      }
+    });
+
+    window.matchMedia("(min-width: 768px)").addEventListener("change", () => {
+      setMenuOpen(false);
+    });
+
+    const contactForm = document.getElementById("contact-form");
+    const contactFormStatus = document.getElementById("contact-form-status");
+
+    if (!(contactForm instanceof HTMLFormElement) || !(contactFormStatus instanceof HTMLParagraphElement)) {
+      throw new Error("Не вдалося ініціалізувати форму зворотного зв'язку.");
+    }
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      contactFormStatus.textContent = "Дякуємо! Усі поля заповнено, але надсилання повідомлень із цієї сторінки наразі не налаштоване. Напишіть нам на info@miypokhid.ua.";
+    });
+  </script>
+</body>
+</html>
