@@ -106,6 +106,7 @@
       }
     };
   </script>
+  <link rel="icon" type="image/png" href="assets/icons/емблема.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="font-body text-text-primary">
@@ -486,6 +487,51 @@
 
     syncVideoMotion();
     motionPreference.addEventListener("change", syncVideoMotion);
+
+    const revealTargets = [...document.querySelectorAll(
+      "#how-it-works .section-heading, #how-it-works .steps-grid > li, #features .section-heading, #features .features-grid > li"
+    )];
+
+    if (!motionPreference.matches && "IntersectionObserver" in window) {
+      const pendingRevealTargets = new Set(revealTargets);
+      let revealObserver;
+
+      function revealTarget(element) {
+        if (!pendingRevealTargets.has(element)) return;
+        element.classList.add("is-visible");
+        pendingRevealTargets.delete(element);
+        revealObserver.unobserve(element);
+        if (pendingRevealTargets.size === 0) {
+          window.removeEventListener("scroll", revealVisibleTargets);
+          window.removeEventListener("resize", revealVisibleTargets);
+        }
+      }
+
+      function revealVisibleTargets() {
+        pendingRevealTargets.forEach((element) => {
+          const bounds = element.getBoundingClientRect();
+          if (bounds.top < window.innerHeight && bounds.bottom > 0) {
+            revealTarget(element);
+          }
+        });
+      }
+
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          revealTarget(entry.target);
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -24px 0px" });
+
+      revealTargets.forEach((element, index) => {
+        element.classList.add("scroll-reveal");
+        element.style.setProperty("--reveal-delay", `${(index % 4) * 80}ms`);
+        revealObserver.observe(element);
+      });
+      window.addEventListener("scroll", revealVisibleTargets, { passive: true });
+      window.addEventListener("resize", revealVisibleTargets);
+      window.requestAnimationFrame(revealVisibleTargets);
+    }
   </script>
 </body>
 </html>

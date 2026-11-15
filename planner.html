@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Підберіть маршрут Карпатами за тривалістю, складністю, складом групи та сезоном.">
+  <meta name="description" content="Підберіть маршрут Карпатами за тривалістю, складністю та складом групи.">
   <title>Підібрати похід — Мій похід</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,6 +34,7 @@
       }
     };
   </script>
+  <link rel="icon" type="image/png" href="assets/icons/емблема.png">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="font-body text-text-primary">
@@ -115,16 +116,37 @@
                   </div>
                 </div>
 
-                <div class="planner-field">
-                  <label for="duration">Тривалість</label>
-                  <div class="planner-select-wrap">
-                    <select class="planner-select" id="duration" name="duration" required>
-                      <option value="" selected disabled>Оберіть тривалість</option>
-                      <option value="1">1 день</option>
-                      <option value="2">2 дні</option>
-                      <option value="3-4">3–4 дні</option>
-                      <option value="5+">5 і більше днів</option>
-                    </select>
+                <div class="planner-field duration-picker" id="duration-picker">
+                  <label id="duration-field-label" for="duration-trigger">Тривалість</label>
+                  <button class="planner-select duration-trigger" id="duration-trigger" type="button" aria-labelledby="duration-field-label duration-label" aria-haspopup="dialog" aria-expanded="false" aria-controls="duration-calendar">
+                    <span id="duration-label">Оберіть тривалість</span>
+                  </button>
+                  <p class="trip-duration" id="trip-duration" hidden></p>
+                  <input type="hidden" id="duration" name="duration" value="">
+                  <input type="hidden" id="start-date" name="startDate" value="">
+                  <input type="hidden" id="end-date" name="endDate" value="">
+                  <div class="calendar-popover" id="duration-calendar" role="dialog" aria-label="Вибір дат походу" hidden>
+                    <p class="calendar-selection" id="date-selection-status" aria-live="polite">Оберіть дату початку походу</p>
+                    <div class="calendar">
+                      <div class="calendar-toolbar">
+                        <button class="calendar-nav" type="button" data-calendar-step="-1" aria-label="Попередній місяць">‹</button>
+                        <div class="calendar-month-year">
+                          <label class="contact-visually-hidden" for="calendar-month">Місяць</label>
+                          <select class="planner-select calendar-select" id="calendar-month" aria-label="Місяць"></select>
+                          <label class="contact-visually-hidden" for="calendar-year">Рік</label>
+                          <select class="planner-select calendar-select" id="calendar-year" aria-label="Рік"></select>
+                        </div>
+                        <button class="calendar-nav" type="button" data-calendar-step="1" aria-label="Наступний місяць">›</button>
+                      </div>
+                      <div class="calendar-weekdays" aria-hidden="true">
+                        <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Нд</span>
+                      </div>
+                      <div class="calendar-days" id="calendar-days" role="grid" aria-label="Дні місяця"></div>
+                    </div>
+                    <div class="calendar-actions">
+                      <button class="calendar-clear" id="clear-dates" type="button">Очистити вибір</button>
+                      <button class="button calendar-apply" id="apply-dates" type="button" disabled>Обрати</button>
+                    </div>
                   </div>
                 </div>
 
@@ -140,22 +162,21 @@
                   </div>
                 </div>
 
-                <div class="planner-field">
-                  <label for="season">Сезон</label>
-                  <div class="planner-select-wrap">
-                    <select class="planner-select" id="season" name="season" required>
-                      <option value="" selected disabled>Оберіть сезон</option>
-                      <option value="spring">Весна</option>
-                      <option value="summer">Літо</option>
-                      <option value="autumn">Осінь</option>
-                      <option value="winter">Зима</option>
-                    </select>
-                  </div>
-                </div>
+                <fieldset class="planner-field planner-companions">
+                  <legend class="contact-visually-hidden">Особливості походу</legend>
+                  <label class="checklist-mode-option">
+                    <input type="checkbox" name="withChildren" value="true">
+                    <span>З дітьми</span>
+                  </label>
+                  <label class="checklist-mode-option">
+                    <input type="checkbox" name="withPets" value="true">
+                    <span>З улюбленцями</span>
+                  </label>
+                </fieldset>
               </div>
 
               <button class="button planner-submit !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="submit">Знайти маршрути</button>
-              <p class="planner-note">У каталозі поки немає даних про рекомендований розмір групи та сезон. Ці параметри не впливають на фільтр.</p>
+              <p class="planner-note">У каталозі поки немає даних для фільтрації за розміром групи, дітьми чи улюбленцями.</p>
             </form>
 
             <div class="planner-image">
@@ -228,8 +249,373 @@
       throw new Error("Не вдалося ініціалізувати форму підбору маршрутів.");
     }
 
+    const calendarDays = document.getElementById("calendar-days");
+    const monthSelect = document.getElementById("calendar-month");
+    const yearSelect = document.getElementById("calendar-year");
+    const dateStatus = document.getElementById("date-selection-status");
+    const durationTrigger = document.getElementById("duration-trigger");
+    const durationCalendar = document.getElementById("duration-calendar");
+    const durationLabel = document.getElementById("duration-label");
+    const durationOutput = document.getElementById("trip-duration");
+    const durationInput = document.getElementById("duration");
+    const startDateInput = document.getElementById("start-date");
+    const endDateInput = document.getElementById("end-date");
+    const clearDatesButton = document.getElementById("clear-dates");
+    const applyDatesButton = document.getElementById("apply-dates");
+
+    if (
+      !(calendarDays instanceof HTMLElement) ||
+      !(monthSelect instanceof HTMLSelectElement) ||
+      !(yearSelect instanceof HTMLSelectElement) ||
+      !(dateStatus instanceof HTMLElement) ||
+      !(durationTrigger instanceof HTMLButtonElement) ||
+      !(durationCalendar instanceof HTMLElement) ||
+      !(durationLabel instanceof HTMLElement) ||
+      !(durationOutput instanceof HTMLElement) ||
+      !(durationInput instanceof HTMLInputElement) ||
+      !(startDateInput instanceof HTMLInputElement) ||
+      !(endDateInput instanceof HTMLInputElement) ||
+      !(clearDatesButton instanceof HTMLButtonElement) ||
+      !(applyDatesButton instanceof HTMLButtonElement)
+    ) {
+      throw new Error("Не вдалося ініціалізувати календар походу.");
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let calendarYear = today.getFullYear();
+    let calendarMonth = today.getMonth();
+    let selectedStart = "";
+    let selectedEnd = "";
+    let draftStart = "";
+    let draftEnd = "";
+    const shortMonthNames = ["січ.", "лют.", "бер.", "квіт.", "трав.", "черв.", "лип.", "серп.", "верес.", "жовт.", "листоп.", "груд."];
+    const fullDate = new Intl.DateTimeFormat("uk-UA", { day: "numeric", month: "long", year: "numeric" });
+
+    for (let month = 0; month < 12; month += 1) {
+      const option = document.createElement("option");
+      option.value = String(month);
+      option.textContent = shortMonthNames[month];
+      monthSelect.append(option);
+    }
+
+    for (let year = today.getFullYear(); year <= today.getFullYear() + 5; year += 1) {
+      const option = document.createElement("option");
+      option.value = String(year);
+      option.textContent = String(year);
+      yearSelect.append(option);
+    }
+
+    function toDateKey(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function fromDateKey(value) {
+      const [year, month, day] = value.split("-").map(Number);
+      return new Date(year, month - 1, day);
+    }
+
+    function formatFullDate(date) {
+      return fullDate.format(date).replace(/\sр\.$/, "");
+    }
+
+    function formatShortDate(date) {
+      return `${date.getDate()} ${shortMonthNames[date.getMonth()]} ${date.getFullYear()}`;
+    }
+
+    function shiftDateByMonth(date, monthOffset) {
+      const targetMonth = new Date(date.getFullYear(), date.getMonth() + monthOffset, 1);
+      const lastDay = new Date(targetMonth.getFullYear(), targetMonth.getMonth() + 1, 0).getDate();
+      return new Date(targetMonth.getFullYear(), targetMonth.getMonth(), Math.min(date.getDate(), lastDay));
+    }
+
+    function getDurationInDays(start, end) {
+      // Both selected calendar dates are counted as trip days.
+      return Math.round((fromDateKey(end) - fromDateKey(start)) / 86400000) + 1;
+    }
+
+    function getDayLabel(days) {
+      const lastTwoDigits = days % 100;
+      if (lastTwoDigits >= 11 && lastTwoDigits <= 14) return "днів";
+      const lastDigit = days % 10;
+      if (lastDigit === 1) return "день";
+      if (lastDigit >= 2 && lastDigit <= 4) return "дні";
+      return "днів";
+    }
+
+    function updateDateSummary() {
+      startDateInput.value = selectedStart;
+      endDateInput.value = selectedEnd;
+      durationOutput.hidden = !selectedEnd;
+
+      if (!selectedStart) {
+        durationLabel.textContent = "Оберіть тривалість";
+        durationInput.value = "";
+        durationOutput.textContent = "";
+        return;
+      }
+
+      const days = getDurationInDays(selectedStart, selectedEnd);
+      const start = fromDateKey(selectedStart);
+      const end = fromDateKey(selectedEnd);
+      const startDateText = formatShortDate(start);
+      const endDateText = formatShortDate(end);
+      const sameMonth = start.getFullYear() === end.getFullYear() && start.getMonth() === end.getMonth();
+      const monthAndYear = `${shortMonthNames[end.getMonth()]} ${end.getFullYear()}`;
+
+      durationLabel.textContent = sameMonth
+        ? `${start.getDate()}–${end.getDate()} ${monthAndYear}`
+        : `${startDateText} – ${endDateText}`;
+      durationOutput.textContent = `Тривалість походу: ${days} ${getDayLabel(days)}`;
+      durationInput.value = String(days);
+    }
+
+    function renderCalendar(focusDate) {
+      monthSelect.value = String(calendarMonth);
+      yearSelect.value = String(calendarYear);
+      calendarDays.replaceChildren();
+
+      const firstDay = new Date(calendarYear, calendarMonth, 1);
+      const offset = (firstDay.getDay() + 6) % 7;
+      const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+      const focusKey = focusDate ? toDateKey(focusDate) : draftEnd || draftStart || toDateKey(today);
+      const latestDate = new Date(today.getFullYear() + 5, 11, 31);
+      let firstAvailableKey = "";
+
+      for (let cell = 0; cell < offset; cell += 1) {
+        const emptyCell = document.createElement("span");
+        emptyCell.className = "calendar-empty";
+        emptyCell.setAttribute("role", "presentation");
+        calendarDays.append(emptyCell);
+      }
+
+      for (let day = 1; day <= daysInMonth; day += 1) {
+        const date = new Date(calendarYear, calendarMonth, day);
+        const dateKey = toDateKey(date);
+        const button = document.createElement("button");
+        button.className = "calendar-day";
+        button.type = "button";
+        button.textContent = String(day);
+        button.dataset.date = dateKey;
+        button.setAttribute("role", "gridcell");
+        button.setAttribute("aria-label", fullDate.format(date));
+        button.tabIndex = dateKey === focusKey ? 0 : -1;
+
+        if (date < today || date > latestDate) {
+          button.disabled = true;
+        }
+        if (!button.disabled && !firstAvailableKey) firstAvailableKey = dateKey;
+        if (dateKey === toDateKey(today)) button.classList.add("is-today");
+        if (dateKey === draftStart || dateKey === draftEnd) button.classList.add("is-selected");
+        if (draftStart && draftEnd && dateKey > draftStart && dateKey < draftEnd) {
+          button.classList.add("is-in-range");
+        }
+        if (dateKey === draftStart && draftEnd) button.classList.add("is-range-start");
+        if (dateKey === draftEnd) button.classList.add("is-range-end");
+        calendarDays.append(button);
+      }
+
+      if (!focusKey.startsWith(`${calendarYear}-${String(calendarMonth + 1).padStart(2, "0")}-`)) {
+        const firstAvailableDay = firstAvailableKey && calendarDays.querySelector(`[data-date="${firstAvailableKey}"]`);
+        if (firstAvailableDay instanceof HTMLButtonElement) firstAvailableDay.tabIndex = 0;
+      }
+
+      applyDatesButton.disabled = !draftStart || !draftEnd;
+
+      if (focusDate) {
+        const target = calendarDays.querySelector(`[data-date="${toDateKey(focusDate)}"]`);
+        if (target instanceof HTMLButtonElement && !target.disabled) target.focus();
+      }
+
+      positionCalendarPopover();
+    }
+
+    monthSelect.addEventListener("change", () => {
+      calendarMonth = Number(monthSelect.value);
+      renderCalendar();
+    });
+
+    yearSelect.addEventListener("change", () => {
+      calendarYear = Number(yearSelect.value);
+      renderCalendar();
+    });
+
+    document.querySelectorAll("[data-calendar-step]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const step = Number(button.getAttribute("data-calendar-step"));
+        const nextMonth = new Date(calendarYear, calendarMonth + step, 1);
+        const minMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        const maxMonth = new Date(today.getFullYear() + 5, 11, 1);
+        if (nextMonth < minMonth || nextMonth > maxMonth) return;
+        calendarYear = nextMonth.getFullYear();
+        calendarMonth = nextMonth.getMonth();
+        renderCalendar();
+      });
+    });
+
+    function openCalendar() {
+      draftStart = selectedStart;
+      draftEnd = selectedEnd;
+      const initialDate = selectedStart ? fromDateKey(selectedStart) : today;
+      calendarYear = initialDate.getFullYear();
+      calendarMonth = initialDate.getMonth();
+      dateStatus.textContent = draftStart && draftEnd
+        ? `${formatFullDate(fromDateKey(draftStart))} — ${formatFullDate(fromDateKey(draftEnd))}`
+        : "Оберіть дату початку походу";
+      plannerForm.classList.add("calendar-open");
+      durationCalendar.hidden = false;
+      durationTrigger.setAttribute("aria-expanded", "true");
+      renderCalendar();
+    }
+
+    function positionCalendarPopover() {
+      if (durationCalendar.hidden) return;
+      if (!window.matchMedia("(max-width: 640px)").matches) {
+        durationCalendar.style.removeProperty("--calendar-popover-top");
+        return;
+      }
+
+      const picker = document.getElementById("duration-picker");
+      const pickerBounds = picker.getBoundingClientRect();
+      const popoverHeight = durationCalendar.getBoundingClientRect().height;
+      const gap = 8;
+      const spaceAbove = pickerBounds.top - gap;
+      const spaceBelow = window.innerHeight - pickerBounds.bottom - gap;
+      const preferredTop = spaceBelow >= popoverHeight
+        ? pickerBounds.bottom + gap
+        : spaceAbove >= popoverHeight || spaceAbove >= spaceBelow
+          ? pickerBounds.top - popoverHeight - gap
+          : pickerBounds.bottom + gap;
+      const top = Math.max(gap, Math.min(preferredTop, window.innerHeight - popoverHeight - gap));
+
+      durationCalendar.style.setProperty("--calendar-popover-top", `${top}px`);
+    }
+
+    function closeCalendar(restoreFocus) {
+      durationCalendar.hidden = true;
+      durationTrigger.setAttribute("aria-expanded", "false");
+      plannerForm.classList.remove("calendar-open");
+      durationCalendar.style.removeProperty("--calendar-popover-top");
+      if (restoreFocus) durationTrigger.focus();
+    }
+
+    durationTrigger.addEventListener("click", () => {
+      if (durationCalendar.hidden) openCalendar();
+      else closeCalendar(false);
+    });
+
+    window.addEventListener("resize", positionCalendarPopover);
+    window.addEventListener("scroll", positionCalendarPopover, { passive: true });
+
+    calendarDays.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) return;
+      const button = event.target.closest("button[data-date]");
+      if (!(button instanceof HTMLButtonElement) || button.disabled) return;
+      event.stopPropagation();
+
+      const dateKey = button.dataset.date;
+      if (!dateKey) return;
+
+      if (!draftStart || draftEnd || dateKey < draftStart) {
+        draftStart = dateKey;
+        draftEnd = "";
+      } else {
+        draftEnd = dateKey;
+      }
+
+      dateStatus.textContent = draftEnd
+        ? `${formatFullDate(fromDateKey(draftStart))} — ${formatFullDate(fromDateKey(draftEnd))}`
+        : `Початок: ${formatFullDate(fromDateKey(draftStart))}. Тепер оберіть дату завершення.`;
+      renderCalendar(fromDateKey(dateKey));
+    });
+
+    calendarDays.addEventListener("keydown", (event) => {
+      if (!(event.target instanceof HTMLButtonElement) || !event.target.dataset.date) return;
+      const currentDate = fromDateKey(event.target.dataset.date);
+      let nextDate;
+
+      // Arrow keys move by day/week; Home and End target the current Monday–Sunday week.
+      switch (event.key) {
+        case "ArrowLeft":
+          nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 1);
+          break;
+        case "ArrowRight":
+          nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 1);
+          break;
+        case "ArrowUp":
+          nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 7);
+          break;
+        case "ArrowDown":
+          nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + 7);
+          break;
+        case "Home":
+          nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - ((currentDate.getDay() + 6) % 7));
+          break;
+        case "End":
+          nextDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + (6 - ((currentDate.getDay() + 6) % 7)));
+          break;
+        case "PageUp":
+          nextDate = shiftDateByMonth(currentDate, -1);
+          break;
+        case "PageDown":
+          nextDate = shiftDateByMonth(currentDate, 1);
+          break;
+        default:
+          return;
+      }
+
+      event.preventDefault();
+      if (nextDate < today || nextDate.getFullYear() > today.getFullYear() + 5) return;
+      calendarYear = nextDate.getFullYear();
+      calendarMonth = nextDate.getMonth();
+      renderCalendar(nextDate);
+    });
+
+    clearDatesButton.addEventListener("click", () => {
+      draftStart = "";
+      draftEnd = "";
+      selectedStart = "";
+      selectedEnd = "";
+      updateDateSummary();
+      closeCalendar(true);
+    });
+
+    applyDatesButton.addEventListener("click", () => {
+      if (!draftStart || !draftEnd) return;
+      selectedStart = draftStart;
+      selectedEnd = draftEnd;
+      updateDateSummary();
+      closeCalendar(true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!(event.target instanceof Node)) return;
+      if (!durationCalendar.hidden && !document.getElementById("duration-picker").contains(event.target)) {
+        closeCalendar(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !durationCalendar.hidden) {
+        closeCalendar(true);
+      }
+    });
+
+    updateDateSummary();
+
     plannerForm.addEventListener("submit", (event) => {
       event.preventDefault();
+
+      if (!selectedStart || !selectedEnd) {
+        dateStatus.textContent = "Оберіть дату початку та завершення походу.";
+        openCalendar();
+        return;
+      }
+
+      if (!plannerForm.reportValidity()) return;
     });
 
     const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
