@@ -100,35 +100,52 @@
             <section class="contact-card contact-form-card" aria-label="Форма зворотного зв'язку">
               <p class="contact-intro">Маєте запитання щодо маршруту, пропозицію співпраці чи хочете поділитися відгуком? Напишіть нам!</p>
 
-              <form class="contact-form" id="contact-form">
-                <div class="contact-fields">
-                  <div class="contact-field">
-                    <label for="contact-name">Ваше ім'я</label>
-                    <input class="contact-control" id="contact-name" name="name" type="text" autocomplete="name" placeholder="Ваше ім'я" required>
+              <form class="contact-form" id="contact-form" novalidate>
+                <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+                  <div class="min-w-0">
+                    <label class="mb-2 block text-sm font-medium text-text-primary" for="contact-name">Ваше ім'я</label>
+                    <input class="block min-h-[48px] w-full rounded-[var(--radius-sm)] border border-[var(--color-secondary)] bg-cream px-3 py-3 font-body text-text-primary placeholder:text-text-muted placeholder:opacity-100 transition-[border-color,box-shadow] duration-200 hover:border-deep-moss focus-visible:border-deep-moss focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream" id="contact-name" name="name" type="text" autocomplete="name" placeholder="Ваше ім'я" aria-describedby="contact-name-error" aria-invalid="false" required>
+                    <p id="contact-name-error" class="hidden" aria-live="polite"></p>
                   </div>
-                  <div class="contact-field">
-                    <label for="contact-email">Email</label>
-                    <input class="contact-control" id="contact-email" name="email" type="email" autocomplete="email" placeholder="Email" required>
+                  <div class="min-w-0">
+                    <label class="mb-2 block text-sm font-medium text-text-primary" for="contact-email">Email</label>
+                    <input class="block min-h-[48px] w-full rounded-[var(--radius-sm)] border border-[var(--color-secondary)] bg-cream px-3 py-3 font-body text-text-primary placeholder:text-text-muted placeholder:opacity-100 transition-[border-color,box-shadow] duration-200 hover:border-deep-moss focus-visible:border-deep-moss focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream" id="contact-email" name="email" type="email" autocomplete="email" placeholder="Email" aria-describedby="contact-email-error" aria-invalid="false" required>
+                    <p id="contact-email-error" class="hidden" aria-live="polite"></p>
                   </div>
-                  <div class="contact-field contact-field-full">
-                    <label class="contact-visually-hidden" for="contact-subject">Тема звернення</label>
-                    <select class="contact-control" id="contact-subject" name="subject" required>
+                  <div class="min-w-0">
+                    <label class="mb-2 block text-sm font-medium text-text-primary" for="contact-phone">Телефон</label>
+                    <input class="block min-h-[48px] w-full rounded-[var(--radius-sm)] border border-[var(--color-secondary)] bg-cream px-3 py-3 font-body text-text-primary placeholder:text-text-muted placeholder:opacity-100 transition-[border-color,box-shadow] duration-200 hover:border-deep-moss focus-visible:border-deep-moss focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream" type="tel" id="contact-phone" name="phone" autocomplete="tel" placeholder="+380501234567" aria-describedby="contact-phone-hint contact-phone-error" aria-invalid="false" required>
+                    <!-- Пояснюємо користувачу, коли номер було нормалізовано. -->
+                    <p id="contact-phone-hint" class="hidden mt-1 text-sm text-text-muted" aria-live="polite"></p>
+                    <p id="contact-phone-error" class="hidden" aria-live="polite"></p>
+                  </div>
+                  <div class="min-w-0">
+                    <label class="mb-2 block text-sm font-medium text-text-primary" for="contact-subject">Тема звернення</label>
+                    <select class="block min-h-[48px] w-full rounded-[var(--radius-sm)] border border-[var(--color-secondary)] bg-cream px-3 py-3 font-body text-text-primary transition-[border-color,box-shadow] duration-200 hover:border-deep-moss focus-visible:border-deep-moss focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream" id="contact-subject" name="subject" aria-describedby="contact-subject-error" aria-invalid="false" required>
                       <option value="" selected disabled>Тема звернення</option>
                       <option value="feedback">Відгук</option>
                       <option value="cooperation">Співпраця</option>
                       <option value="suggestion">Пропозиція</option>
                       <option value="question">Запитання</option>
                     </select>
+                    <p id="contact-subject-error" class="hidden" aria-live="polite"></p>
                   </div>
-                  <div class="contact-field contact-field-full">
-                    <label class="contact-visually-hidden" for="contact-message">Повідомлення</label>
-                    <textarea class="contact-control contact-message" id="contact-message" name="message" placeholder="Повідомлення" required></textarea>
+                  <div class="col-span-full min-w-0">
+                    <label class="sr-only" for="contact-message">Повідомлення</label>
+                    <textarea class="block min-h-[150px] w-full resize-y rounded-[var(--radius-sm)] border border-[var(--color-secondary)] bg-cream px-3 py-3 font-body text-text-primary placeholder:text-text-muted placeholder:opacity-100 transition-[border-color,box-shadow] duration-200 hover:border-deep-moss focus-visible:border-deep-moss focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream" id="contact-message" name="message" placeholder="Повідомлення" aria-describedby="contact-message-error" aria-invalid="false" required></textarea>
+                    <p id="contact-message-error" class="hidden" aria-live="polite"></p>
                   </div>
-                </div>
-
-                <div class="contact-form-actions">
-                  <p class="contact-form-status" id="contact-form-status" role="status" aria-live="polite"></p>
-                  <button class="button contact-submit !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" type="submit">Надіслати</button>
+                  <div class="col-span-full">
+                    <div class="flex min-h-[44px] items-center gap-2">
+                      <input class="h-[18px] w-[18px] shrink-0 appearance-none rounded-full border-[1.5px] border-deep-moss bg-cream transition-colors duration-200 hover:border-warm-amber checked:bg-[radial-gradient(circle,_var(--color-primary)_0_4px,_var(--color-white)_4.5px)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream" type="checkbox" id="contact-agreement" name="agreement" aria-describedby="contact-agreement-error" aria-invalid="false" required>
+                      <label class="flex-1 cursor-pointer text-sm font-medium text-text-primary" for="contact-agreement">Я погоджуюсь з політикою конфіденційності</label>
+                    </div>
+                    <p id="contact-agreement-error" class="hidden" aria-live="polite"></p>
+                  </div>
+                  <div class="col-span-full mt-2 flex flex-col gap-4 md:flex-row md:items-end md:justify-end">
+                    <p class="contact-form-status" id="contact-form-status" role="status" aria-live="polite"></p>
+                    <button class="min-h-[48px] w-full cursor-pointer rounded-[var(--radius-sm)] bg-deep-moss px-5 py-3 font-body text-sm font-medium text-cream transition-colors duration-200 hover:bg-warm-amber hover:text-text-primary hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream md:ml-auto md:w-auto" type="submit">Надіслати</button>
+                  </div>
                 </div>
               </form>
             </section>
@@ -194,6 +211,27 @@
     </footer>
   </div>
 
+  <!-- Доступне модальне вікно підтвердження після успішної перевірки форми. -->
+  <div id="success-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+    <div
+      class="w-full max-w-md rounded-xl bg-cream p-6 text-text-primary shadow-xl"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="success-modal-title"
+      aria-describedby="success-modal-text"
+    >
+      <h2 class="text-xl font-semibold" id="success-modal-title">Дякуємо!</h2>
+      <p class="mt-3" id="success-modal-text">Форма успішно пройшла клієнтську валідацію. Це демонстрація успішного надсилання: дані на сервер не передаються.</p>
+      <div class="mt-6 flex justify-end">
+        <button
+          class="min-h-[48px] w-full cursor-pointer rounded-[var(--radius-sm)] bg-deep-moss px-5 py-3 font-body text-sm font-medium text-cream transition-colors duration-200 hover:bg-warm-amber hover:text-text-primary hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream sm:w-auto"
+          type="button"
+          id="success-modal-close"
+        >Закрити</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const menuButton = document.getElementById("mobile-menu-toggle");
     const menu = document.getElementById("header-navigation");
@@ -230,17 +268,7 @@
       setMenuOpen(false);
     });
 
-    const contactForm = document.getElementById("contact-form");
-    const contactFormStatus = document.getElementById("contact-form-status");
-
-    if (!(contactForm instanceof HTMLFormElement) || !(contactFormStatus instanceof HTMLParagraphElement)) {
-      throw new Error("Не вдалося ініціалізувати форму зворотного зв'язку.");
-    }
-
-    contactForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      contactFormStatus.textContent = "Дякуємо! Усі поля заповнено, але надсилання повідомлень із цієї сторінки наразі не налаштоване. Напишіть нам на info@miypokhid.ua.";
-    });
   </script>
+  <script src="assets/js/validation.js"></script>
 </body>
 </html>
