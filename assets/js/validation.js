@@ -1,3 +1,6 @@
+const WEB3FORMS_URL = "https://api.web3forms.com/submit";
+const WEB3FORMS_ACCESS_KEY = "868fc233-ba7c-40cc-80e0-a585da75b243";
+
 // Регулярні вирази для формату email і номера телефону.
 const REGEX_PHONE = /^\+380[0-9]{9}$/;
 const REGEX_EMAIL = /^[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z]{2,}$/;
@@ -20,6 +23,7 @@ const phoneInput = getRequiredElement("contact-phone", HTMLInputElement);
 const subjectInput = getRequiredElement("contact-subject", HTMLSelectElement);
 const messageInput = getRequiredElement("contact-message", HTMLTextAreaElement);
 const agreementInput = getRequiredElement("contact-agreement", HTMLInputElement);
+const botcheckInput = getRequiredElement("contact-botcheck", HTMLInputElement);
 
 const nameError = getRequiredElement("contact-name-error", HTMLParagraphElement);
 const emailError = getRequiredElement("contact-email-error", HTMLParagraphElement);
@@ -36,6 +40,9 @@ const submitButton = form.querySelector('button[type="submit"]');
 if (!(submitButton instanceof HTMLButtonElement)) {
   throw new Error("Не знайдено кнопку надсилання форми.");
 }
+
+const originalSubmitButtonText = submitButton.textContent;
+let isSubmitting = false;
 
 // Скидаємо попередній текст і стилі стану поля.
 function clearError(input, errorElement) {
@@ -280,10 +287,10 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  if (!successModal.classList.contains("hidden")) {
+  if (isSubmitting || !successModal.classList.contains("hidden") || botcheckInput.value) {
     return;
   }
 
@@ -308,6 +315,43 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
-  resetFormState();
-  openSuccessModal();
+  isSubmitting = true;
+  submitButton.disabled = true;
+  submitButton.textContent = "Надсилання…";
+
+  const formData = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    name: nameInput.value,
+    email: emailInput.value,
+    phone: phoneInput.value,
+    message: messageInput.value,
+    subject: subjectInput.selectedOptions[0].textContent,
+    from_name: "Мій похід — форма контактів",
+    agreement: "так"
+  };
+
+  try {
+    const response = await fetch(WEB3FORMS_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(formData)
+    });
+    const result = await response.json();
+
+    if (!response.ok || result.success !== true) {
+      throw new Error("Web3Forms не підтвердив надсилання.");
+    }
+
+    resetFormState();
+    openSuccessModal();
+  } catch {
+    formStatus.textContent = "Не вдалося надіслати повідомлення. Перевірте з'єднання й спробуйте ще раз.";
+  } finally {
+    isSubmitting = false;
+    submitButton.disabled = false;
+    submitButton.textContent = originalSubmitButtonText;
+  }
 });

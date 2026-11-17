@@ -101,6 +101,7 @@
               <p class="contact-intro">Маєте запитання щодо маршруту, пропозицію співпраці чи хочете поділитися відгуком? Напишіть нам!</p>
 
               <form class="contact-form" id="contact-form" novalidate>
+                <input class="hidden" id="contact-botcheck" type="text" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
                 <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
                   <div class="min-w-0">
                     <label class="mb-2 block text-sm font-medium text-text-primary" for="contact-name">Ваше ім'я</label>
@@ -221,7 +222,7 @@
       aria-describedby="success-modal-text"
     >
       <h2 class="text-xl font-semibold" id="success-modal-title">Дякуємо!</h2>
-      <p class="mt-3" id="success-modal-text">Форма успішно пройшла клієнтську валідацію.</p>
+      <p class="mt-3" id="success-modal-text">Дякуємо! Ваше повідомлення надіслано. Ми відповімо на вказану електронну адресу.</p>
       <div class="mt-6 flex justify-end">
         <button
           class="min-h-[48px] w-full cursor-pointer rounded-[var(--radius-sm)] bg-deep-moss px-5 py-3 font-body text-sm font-medium text-cream transition-colors duration-200 hover:bg-warm-amber hover:text-text-primary hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream sm:w-auto"
