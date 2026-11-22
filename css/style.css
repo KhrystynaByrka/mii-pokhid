@@ -3033,3 +3033,154 @@ img {
     transform: none;
   }
 }
+
+/* ===== ЛР №10: Typed.js ===== */
+.hero-typed {
+  min-height: 3.2em;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary-hover);
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+  transform: translateY(-12px);
+}
+
+.typed-cursor {
+  color: var(--color-secondary);
+}
+
+/* ===== ЛР №10: Swiper (відгуки) ===== */
+.reviews-swiper {
+  --swiper-theme-color: var(--color-primary);
+  --swiper-navigation-color: var(--color-white);
+  --swiper-navigation-size: 16px;
+  position: relative;
+  padding: 12px 12px 68px;
+}
+
+.reviews-swiper .swiper-slide {
+  display: flex;
+  height: auto;
+}
+
+.reviews-swiper .swiper-pagination {
+  bottom: 22px;
+}
+
+.reviews-swiper .swiper-pagination-bullet {
+  background: var(--color-secondary);
+  opacity: 0.4;
+}
+
+.reviews-swiper .swiper-pagination-bullet-active {
+  background: var(--color-primary);
+  opacity: 1;
+}
+
+.reviews-swiper .swiper-button-prev,
+.reviews-swiper .swiper-button-next {
+  top: auto;
+  bottom: 6px;
+  width: 44px;
+  height: 44px;
+  margin-top: 0;
+  border-radius: var(--radius-circle);
+  background: var(--color-primary);
+  transition: background-color var(--transition-fast);
+}
+
+.reviews-swiper .swiper-button-prev {
+  left: calc(50% - 120px);
+}
+
+.reviews-swiper .swiper-button-next {
+  right: calc(50% - 120px);
+}
+
+.reviews-swiper .swiper-button-prev:hover,
+.reviews-swiper .swiper-button-next:hover {
+  background: var(--color-primary-hover);
+}
+
+.review-avatar-initials {
+  display: grid;
+  place-items: center;
+  background: var(--color-light-green);
+  color: var(--color-text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-nav);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ===== ЛР №10: Галерея (Fancybox) ===== */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.gallery-link {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-route-card);
+  box-shadow: var(--shadow-card);
+}
+
+.gallery-link img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.gallery-link:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.gallery-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 36px var(--spacing-md) 12px;
+  background: linear-gradient(transparent, rgba(44, 51, 34, 0.78));
+  color: var(--color-white);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-nav);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .gallery-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gallery-link img {
+    height: 200px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-link img,
+  .reviews-swiper .swiper-button-prev,
+  .reviews-swiper .swiper-button-next {
+    transition: none;
+  }
+
+  .gallery-link:hover img {
+    transform: none;
+  }
+}

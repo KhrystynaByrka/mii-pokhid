@@ -107,6 +107,8 @@
     };
   </script>
   <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="font-body text-text-primary">
@@ -180,6 +182,7 @@
           <div class="hero-copy">
             <div class="eyebrow">Маршрути Українських Карпат</div>
             <h1 id="hero-title">Похід у Карпатах, який підходить саме вам</h1>
+            <div class="hero-typed" aria-hidden="true"><span id="typed-text"></span></div>
             <p>Зручний пошук маршрутів, зрозуміла оцінка складності та чекліст підготовки — усе для впевненої мандрівки в Карпати.</p>
             <div class="button-group">
               <a class="button !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="planner.html">Підібрати свій похід</a>
@@ -348,53 +351,123 @@
             <h2 id="reviews-title">Що кажуть ті, що вже підкорили вершини</h2>
             <p>Досвід тих, хто вже знайшов свій маршрут</p>
           </div>
-          <ul class="reviews-grid">
-            <li>
-              <a class="review-card-link" href="reviews.html">
-                <article class="review-card card-hover max-[640px]:!px-3">
-                  <div class="review-stars" aria-label="5 з 5 зірок">★★★★★</div>
-                  <p>Завдяки зручному чеклісту вперше зібрала рюкзак без паніки і нічого не забула. Маршрут на Озеро Несамовите пройшов ідеально!</p>
-                  <div class="review-profile">
-                    <img class="review-avatar max-[640px]:!h-10 max-[640px]:!w-10 max-[640px]:!basis-10" src="assets/images/аватарка 1.jpg" alt="Олена К.">
-                    <div class="review-identity">
-                      <div class="review-author max-[640px]:!text-sm">Олена К.</div>
-                      <div class="review-note max-[640px]:!text-xs">Маршрут: Озеро Несамовите</div>
+                    <div class="swiper reviews-swiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <a class="review-card-link" href="reviews.html">
+                  <article class="review-card card-hover max-[640px]:!px-3">
+                    <div class="review-stars" aria-label="5 з 5 зірок">★★★★★</div>
+                    <p>Завдяки зручному чеклісту вперше зібрала рюкзак без паніки і нічого не забула. Маршрут на Озеро Несамовите пройшов ідеально!</p>
+                    <div class="review-profile">
+                      <img class="review-avatar max-[640px]:!h-10 max-[640px]:!w-10 max-[640px]:!basis-10" src="assets/images/аватарка 1.jpg" alt="Олена К.">
+                      <div class="review-identity">
+                        <div class="review-author max-[640px]:!text-sm">Олена К.</div>
+                        <div class="review-note max-[640px]:!text-xs">Маршрут: Озеро Несамовите</div>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </a>
-            </li>
-            <li>
-              <a class="review-card-link" href="reviews.html">
-                <article class="review-card card-hover max-[640px]:!px-3">
-                  <div class="review-stars" aria-label="5 з 5 зірок">★★★★★</div>
-                  <p>Детальний набір висоти та розрахунок часу допомогли правильно розпланувати день і прийти у табір до темряви.</p>
-                  <div class="review-profile">
-                    <img class="review-avatar max-[640px]:!h-10 max-[640px]:!w-10 max-[640px]:!basis-10" src="assets/images/аватарка 2.jpg" alt="Бодя">
-                    <div class="review-identity">
-                      <div class="review-author max-[640px]:!text-sm">Бодя</div>
-                      <div class="review-note max-[640px]:!text-xs">Маршрут: Озеро Несамовите</div>
+                  </article>
+                </a>
+              </div>
+              <div class="swiper-slide">
+                <a class="review-card-link" href="reviews.html">
+                  <article class="review-card card-hover max-[640px]:!px-3">
+                    <div class="review-stars" aria-label="5 з 5 зірок">★★★★★</div>
+                    <p>Детальний набір висоти та розрахунок часу допомогли правильно розпланувати день і прийти у табір до темряви.</p>
+                    <div class="review-profile">
+                      <img class="review-avatar max-[640px]:!h-10 max-[640px]:!w-10 max-[640px]:!basis-10" src="assets/images/аватарка 2.jpg" alt="Бодя">
+                      <div class="review-identity">
+                        <div class="review-author max-[640px]:!text-sm">Бодя</div>
+                        <div class="review-note max-[640px]:!text-xs">Маршрут: Озеро Несамовите</div>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </a>
-            </li>
-            <li>
-              <a class="review-card-link" href="reviews.html">
-                <article class="review-card card-hover max-[640px]:!px-3">
-                  <div class="review-stars" aria-label="4 з 5 зірок">★★★★<span class="review-star-muted" aria-hidden="true">★</span></div>
-                  <p>Чудовий додаток для планування! Маршрут на Шпиці детально розписаний, а чекліст дууже виручив. Зняла одну зірочку лише через те, що в дорозі в пару місць зник інтернет і хотілося б офлайн-карту.</p>
-                  <div class="review-profile">
-                    <img class="review-avatar max-[640px]:!h-10 max-[640px]:!w-10 max-[640px]:!basis-10" src="assets/images/аватарка 3.jpg" alt="Marta">
-                    <div class="review-identity">
-                      <div class="review-author max-[640px]:!text-sm">Marta</div>
-                      <div class="review-note max-[640px]:!text-xs">Маршрут: Гора Шпиці</div>
+                  </article>
+                </a>
+              </div>
+              <div class="swiper-slide">
+                <a class="review-card-link" href="reviews.html">
+                  <article class="review-card card-hover max-[640px]:!px-3">
+                    <div class="review-stars" aria-label="4 з 5 зірок">★★★★<span class="review-star-muted" aria-hidden="true">★</span></div>
+                    <p>Чудовий додаток для планування! Маршрут на Шпиці детально розписаний, а чекліст дууже виручив. Зняла одну зірочку лише через те, що в дорозі в пару місць зник інтернет і хотілося б офлайн-карту.</p>
+                    <div class="review-profile">
+                      <img class="review-avatar max-[640px]:!h-10 max-[640px]:!w-10 max-[640px]:!basis-10" src="assets/images/аватарка 3.jpg" alt="Marta">
+                      <div class="review-identity">
+                        <div class="review-author max-[640px]:!text-sm">Marta</div>
+                        <div class="review-note max-[640px]:!text-xs">Маршрут: Гора Шпиці</div>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </a>
-            </li>
-          </ul>
+                  </article>
+                </a>
+              </div>
+              <div class="swiper-slide">
+                <a class="review-card-link" href="reviews.html">
+                  <article class="review-card card-hover max-[640px]:!px-3">
+                    <div class="review-stars" aria-label="5 з 5 зірок">★★★★★</div>
+                    <p>Йшли з дітьми на полонину: помірна складність і точний час переходу дозволили нікуди не поспішати. Діти в захваті, самі просять ще один похід.</p>
+                    <div class="review-profile">
+                      <div class="review-avatar review-avatar-initials" aria-hidden="true">СТ</div>
+                      <div class="review-identity">
+                        <div class="review-author max-[640px]:!text-sm">Софія Т.</div>
+                        <div class="review-note max-[640px]:!text-xs">Маршрут: Прогулянка полониною</div>
+                      </div>
+                    </div>
+                  </article>
+                </a>
+              </div>
+              <div class="swiper-slide">
+                <a class="review-card-link" href="reviews.html">
+                  <article class="review-card card-hover max-[640px]:!px-3">
+                    <div class="review-stars" aria-label="5 з 5 зірок">★★★★★</div>
+                    <p>Підбір за параметрами реально економить час: за хвилину отримав маршрут під нашу групу і список спорядження. Усе було точно так, як описано.</p>
+                    <div class="review-profile">
+                      <div class="review-avatar review-avatar-initials" aria-hidden="true">АЛ</div>
+                      <div class="review-identity">
+                        <div class="review-author max-[640px]:!text-sm">Андрій Л.</div>
+                        <div class="review-note max-[640px]:!text-xs">Маршрут: Гора Шпиці</div>
+                      </div>
+                    </div>
+                  </article>
+                </a>
+              </div>
+            </div>
+            <div class="swiper-button-prev" aria-label="Попередній відгук"></div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next" aria-label="Наступний відгук"></div>
+          </div>
+      </section>
+
+            <section class="section" id="gallery" aria-labelledby="gallery-title">
+        <div class="container">
+          <div class="section-heading">
+            <div class="eyebrow">Галерея маршрутів</div>
+            <h2 id="gallery-title">Карпати очима мандрівників</h2>
+            <p>Натисніть на фото, щоб відкрити альбом, гортати кадри та збільшувати їх</p>
+          </div>
+          <div class="gallery-grid">
+            <a class="gallery-link" href="assets/images/на хребті.jpg" data-fancybox="routes" data-caption="Стежка Карпатським хребтом">
+              <img src="assets/images/на хребті.jpg" alt="Туристична стежка на гірському хребті Карпат" loading="lazy">
+              <span class="gallery-caption">Стежка хребтом</span>
+            </a>
+            <a class="gallery-link" href="assets/reviews/шпиці_відгук1.jpg" data-fancybox="routes" data-caption="Краєвиди біля гори Шпиці">
+              <img src="assets/reviews/шпиці_відгук1.jpg" alt="Скелі та гірські краєвиди біля гори Шпиці" loading="lazy">
+              <span class="gallery-caption">Біля Шпиць</span>
+            </a>
+            <a class="gallery-link" href="assets/reviews/шпиці_відгук2.jpg" data-fancybox="routes" data-caption="На вершині Шпиць">
+              <img src="assets/reviews/шпиці_відгук2.jpg" alt="Мандрівниця біля позначки вершини Шпиці" loading="lazy">
+              <span class="gallery-caption">На вершині</span>
+            </a>
+            <a class="gallery-link" href="assets/reviews/бодя_відгук.jpg" data-fancybox="routes" data-caption="Мандрівники на карпатській полонині">
+              <img src="assets/reviews/бодя_відгук.jpg" alt="Мандрівники на карпатській полонині" loading="lazy">
+              <span class="gallery-caption">Мандрівники на полонині</span>
+            </a>
+            <a class="gallery-link" href="assets/images/озеро несамовите.jpeg" data-fancybox="routes" data-caption="Високогірне озеро Несамовите">
+              <img src="assets/images/озеро несамовите.jpeg" alt="Озеро Несамовите" loading="lazy">
+              <span class="gallery-caption">Озеро Несамовите</span>
+            </a>
+            <a class="gallery-link" href="assets/images/полонина.jpg" data-fancybox="routes" data-caption="Відкриті схили карпатських полонин">
+              <img src="assets/images/полонина.jpg" alt="Карпатська полонина" loading="lazy">
+              <span class="gallery-caption">Полонини</span>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -532,6 +605,68 @@
       window.addEventListener("resize", revealVisibleTargets);
       window.requestAnimationFrame(revealVisibleTargets);
     }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+  <script>
+    console.log('plugins inline loaded');
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* 1. Typed.js — друкований рядок у Hero */
+      const typedStrings = [
+        'Підбір маршруту під ваш рівень підготовки.',
+        'Чекліст спорядження в один клік.',
+        'Безпека та контакти рятувальників.'
+      ];
+      const typedTarget = document.querySelector('#typed-text');
+
+      if (typedTarget) {
+        if (reduceMotion || typeof Typed === 'undefined') {
+          typedTarget.textContent = typedStrings[0];
+        } else {
+          new Typed('#typed-text', {
+            strings: typedStrings,
+            typeSpeed: 50,
+            backSpeed: 30,
+            backDelay: 1500,
+            loop: true
+          });
+        }
+      }
+
+      /* 2. Swiper.js — слайдер відгуків */
+      if (document.querySelector('.reviews-swiper') && typeof Swiper !== 'undefined') {
+        new Swiper('.reviews-swiper', {
+          loop: true,
+          spaceBetween: 24,
+          grabCursor: true,
+          autoplay: reduceMotion
+            ? false
+            : { delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true },
+          pagination: { el: '.reviews-swiper .swiper-pagination', clickable: true },
+          navigation: {
+            nextEl: '.reviews-swiper .swiper-button-next',
+            prevEl: '.reviews-swiper .swiper-button-prev'
+          },
+          breakpoints: {
+            320: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 }
+          }
+        });
+      }
+
+      /* 3. Fancybox v5 — галерея маршрутів */
+      if (document.querySelector('[data-fancybox="routes"]') && typeof Fancybox !== 'undefined') {
+        Fancybox.bind('[data-fancybox="routes"]', {
+          Carousel: { transition: 'fade' },
+          Images: { Panzoom: { maxScale: 3 } }
+        });
+      }
+    });
   </script>
 </body>
 </html>
