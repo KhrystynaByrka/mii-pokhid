@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Перегляньте всі туристичні маршрути Карпатами та оберіть похід за рівнем складності.">
+  <title>Маршрути — Мій похід</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "deep-moss": "var(--color-primary)",
+            cream: "var(--color-bg-base)",
+            "warm-amber": "var(--color-accent)",
+            "text-primary": "var(--color-text-primary)",
+            "text-muted": "var(--color-text-muted)",
+            "footer-muted": "var(--color-footer-muted)",
+            "surface-muted": "var(--color-surface-muted)"
+          },
+          fontFamily: {
+            body: "var(--font-body)"
+          },
+          minHeight: {
+            header: "var(--header-min-height)"
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .routes-page-filters {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--spacing-sm) var(--spacing-md);
+      margin-bottom: var(--spacing-xl);
+    }
+
+    .routes-page-filters-label {
+      margin: 0;
+      color: var(--color-text-primary);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .routes-page-filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+    }
+
+    .routes-page-filter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: auto;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      border: none;
+      border-radius: var(--radius-pill);
+      font: inherit;
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.2;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .routes-page-filter--easy {
+      background: color-mix(in srgb, var(--color-success) 14%, var(--color-surface));
+      color: var(--color-success);
+    }
+
+    .routes-page-filter--medium {
+      background: color-mix(in srgb, var(--color-warning) 16%, var(--color-surface));
+      color: var(--color-warning);
+    }
+
+    .routes-page-filter--hard {
+      background: color-mix(in srgb, var(--color-error) 14%, var(--color-surface));
+      color: var(--color-error);
+    }
+
+    .routes-page-filter:hover {
+      box-shadow: 0 1px 2px rgba(70, 70, 45, 0.08);
+    }
+
+    .routes-page-filter--easy:hover {
+      background: color-mix(in srgb, var(--color-success) 22%, var(--color-surface));
+    }
+
+    .routes-page-filter--medium:hover {
+      background: color-mix(in srgb, var(--color-warning) 24%, var(--color-surface));
+    }
+
+    .routes-page-filter--hard:hover {
+      background: color-mix(in srgb, var(--color-error) 22%, var(--color-surface));
+    }
+
+    .routes-page-filter:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    .routes-page-filter[aria-pressed="true"] {
+      color: var(--color-white);
+    }
+
+    .routes-page-filter--easy[aria-pressed="true"],
+    .routes-page-filter--easy[aria-pressed="true"]:hover {
+      background: var(--color-success);
+    }
+
+    .routes-page-filter--medium[aria-pressed="true"],
+    .routes-page-filter--medium[aria-pressed="true"]:hover {
+      background: var(--color-warning);
+    }
+
+    .routes-page-filter--hard[aria-pressed="true"],
+    .routes-page-filter--hard[aria-pressed="true"]:hover {
+      background: var(--color-error);
+    }
+
+    .routes-page-empty {
+      margin: var(--spacing-lg) 0 0;
+      padding: var(--spacing-lg);
+      border: var(--border-width) solid var(--color-surface-muted);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    .routes-page-empty[hidden] {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .routes-page-filter {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body class="font-body text-text-primary">
+  <div class="page">
+    <header class="site-header">
+      <div class="container relative flex min-h-header flex-wrap items-center justify-between gap-4 md:flex-nowrap">
+        <a
+          class="logo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep-moss"
+          href="index.html#main"
+          aria-label="Мій похід — на головну"
+        >
+          <img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img">
+        </a>
+
+        <nav
+          id="header-navigation"
+          class="header-navigation order-last hidden w-full py-3 md:order-none md:flex md:w-auto md:items-center md:gap-6 md:py-0"
+          aria-label="Головна навігація"
+        >
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="about.html"
+          >Про проєкт</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="routes.html"
+            aria-current="page"
+          >Маршрути</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="checklist.html"
+          >Чекліст підготовки</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="contacts.html"
+          >Контакти</a>
+          <a
+            class="block py-2 text-text-muted hover:text-deep-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:py-0"
+            href="reviews.html"
+          >Відгуки</a>
+        </nav>
+
+        <button
+          id="mobile-menu-toggle"
+          class="order-2 flex items-center justify-center rounded-lg p-2 text-text-primary hover:bg-surface-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deep-moss md:hidden"
+          type="button"
+          aria-label="Відкрити меню"
+          aria-controls="header-navigation"
+          aria-expanded="false"
+        >
+          <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+        <a
+          class="button button-small order-3 !hidden !transition-all !duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 md:!inline-flex"
+          href="planner.html"
+        >Підібрати свій похід</a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section section-muted" aria-labelledby="routes-page-title">
+        <div class="container">
+          <header class="reviews-page-heading">
+            <h1 id="routes-page-title">Вибери свій маршрут</h1>
+            <p>Знайди похід, який відповідатиме твоєму досвіду та бажанням</p>
+          </header>
+
+          <div class="routes-page-filters" aria-label="Фільтрація маршрутів за рівнем складності">
+            <p class="routes-page-filters-label" id="routes-difficulty-label">Рівень складності:</p>
+            <div class="routes-page-filter-group" role="group" aria-labelledby="routes-difficulty-label">
+              <button type="button" class="routes-page-filter routes-page-filter--easy" data-difficulty="easy" aria-pressed="false">Легкий</button>
+              <button type="button" class="routes-page-filter routes-page-filter--medium" data-difficulty="medium" aria-pressed="false">Середній</button>
+              <button type="button" class="routes-page-filter routes-page-filter--hard" data-difficulty="hard" aria-pressed="false">Важкий</button>
+            </div>
+          </div>
+
+          <ul class="routes-grid grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" id="routes-list">
+            <li data-difficulty="hard">
+              <article id="route-shpytsi" class="route-card card-hover group overflow-hidden rounded-card bg-white shadow-card">
+                <div class="route-image route-image-one relative shrink-0">
+                  <img src="assets/images/шпиці.jpg" alt="Гора Шпиці" class="transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="route-content">
+                  <div class="route-meta flex-wrap">
+                    <span class="difficulty-badge difficulty-hard">Складний</span>
+                    <span class="route-rating">Оцінка користувачів ★ 5</span>
+                  </div>
+                  <div class="route-area">Чорногірський хребет</div>
+                  <h3 class="font-heading">Шпиці</h3>
+                  <p>Вражаючий трек Чорногорою до величних кам'яних веж</p>
+                  <dl class="route-stats">
+                    <div><dt>Відстань</dt><dd>12 км</dd></div>
+                    <div><dt>Набір висоти</dt><dd>850 м</dd></div>
+                    <div><dt>Час</dt><dd>6–7 год</dd></div>
+                  </dl>
+                  <a class="route-button !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="#routes-list">Переглянути маршрут</a>
+                </div>
+              </article>
+            </li>
+            <li data-difficulty="medium">
+              <article id="route-nesamovyte" class="route-card card-hover group overflow-hidden rounded-card bg-white shadow-card">
+                <div class="route-image route-image-two relative shrink-0">
+                  <img src="assets/images/озеро несамовите.jpeg" alt="Озеро Несамовите" class="transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="route-content">
+                  <div class="route-meta flex-wrap">
+                    <span class="difficulty-badge difficulty-medium">Середній</span>
+                    <span class="route-rating">Оцінка користувачів ★ 5</span>
+                  </div>
+                  <div class="route-area">Чорногора</div>
+                  <h3 class="font-heading">Озеро Несамовите</h3>
+                  <p>Мальовничий маршрут через високогірне озеро з виходом на гребінь</p>
+                  <dl class="route-stats">
+                    <div><dt>Відстань</dt><dd>14 км</dd></div>
+                    <div><dt>Набір висоти</dt><dd>700 м</dd></div>
+                    <div><dt>Час</dt><dd>7–8 год</dd></div>
+                  </dl>
+                  <a class="route-button !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="#routes-list">Переглянути маршрут</a>
+                </div>
+              </article>
+            </li>
+            <li data-difficulty="easy">
+              <article id="route-polonyna" class="route-card card-hover group overflow-hidden rounded-card bg-white shadow-card">
+                <div class="route-image route-image-three relative shrink-0">
+                  <img src="assets/images/полонина.jpg" alt="Прогулянка полониною" class="transition duration-500 group-hover:scale-105">
+                </div>
+                <div class="route-content">
+                  <div class="route-meta flex-wrap">
+                    <span class="difficulty-badge difficulty-easy">Легкий</span>
+                    <span class="route-rating">Оцінка користувачів ★ 5</span>
+                  </div>
+                  <div class="route-area">Карпатські полонини</div>
+                  <h3 class="font-heading">Прогулянка полониною</h3>
+                  <p>Неспішна стежка відкритими схилами з краєвидами на карпатські хребти.</p>
+                  <dl class="route-stats">
+                    <div><dt>Відстань</dt><dd>5 км</dd></div>
+                    <div><dt>Набір висоти</dt><dd>200 м</dd></div>
+                    <div><dt>Час</dt><dd>2–3 год</dd></div>
+                  </dl>
+                  <a class="route-button !transition-all duration-200 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2" href="#routes-list">Переглянути маршрут</a>
+                </div>
+              </article>
+            </li>
+          </ul>
+          <p class="routes-page-empty" id="routes-empty" hidden>За вибраними рівнями складності маршрутів не знайдено.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer" class="site-footer bg-text-primary text-cream">
+      <div class="container footer-content mx-auto grid max-w-7xl grid-cols-1 gap-8 px-6 py-12 text-left sm:grid-cols-2 sm:px-8 lg:px-10">
+        <div class="footer-brand items-start">
+          <a class="logo footer-logo rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="index.html#main" aria-label="Мій похід — на головну"><img src="assets/images/log.without.png" alt="Логотип Мій похід" class="logo-img"></a>
+          <p class="footer-tagline text-footer-muted">Ваш похід починається з доброго плану</p>
+        </div>
+        <nav class="footer-navigation justify-start" aria-label="Навігація в підвалі">
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="about.html">Про проєкт</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="routes.html" aria-current="page">Маршрути</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="checklist.html">Чекліст підготовки</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="contacts.html">Контакти</a>
+          <a class="rounded-sm text-footer-muted transition-colors hover:text-warm-amber focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-warm-amber" href="reviews.html">Відгуки</a>
+        </nav>
+        <div class="copyright border-t border-alpine-earth pt-6 text-footer-muted sm:col-span-2">© 2026 Мій похід. Бережімо Карпати.</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const menuButton = document.getElementById("mobile-menu-toggle");
+    const menu = document.getElementById("header-navigation");
+
+    if (!(menuButton instanceof HTMLButtonElement) || !(menu instanceof HTMLElement)) {
+      throw new Error("Не знайдено кнопку або навігацію мобільного меню.");
+    }
+
+    function setMenuOpen(isOpen) {
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Закрити меню" : "Відкрити меню");
+      menu.classList.toggle("hidden", !isOpen);
+      menu.classList.toggle("block", isOpen);
+    }
+
+    menuButton.addEventListener("click", () => {
+      setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+    });
+
+    menu.addEventListener("click", (event) => {
+      if (event.target instanceof Element && event.target.closest("a")) {
+        setMenuOpen(false);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false);
+        menuButton.focus();
+      }
+    });
+
+    window.matchMedia("(min-width: 768px)").addEventListener("change", () => {
+      setMenuOpen(false);
+    });
+
+    const filterButtons = Array.from(document.querySelectorAll(".routes-page-filter"));
+    const routeItems = Array.from(document.querySelectorAll("#routes-list > li[data-difficulty]"));
+    const emptyState = document.getElementById("routes-empty");
+
+    if (!(emptyState instanceof HTMLElement)) {
+      throw new Error("Не знайдено повідомлення про відсутність маршрутів.");
+    }
+
+    function updateRoutesVisibility() {
+      const activeLevels = filterButtons
+        .filter((button) => button.getAttribute("aria-pressed") === "true")
+        .map((button) => button.dataset.difficulty);
+
+      let visibleCount = 0;
+
+      routeItems.forEach((item) => {
+        const difficulty = item.dataset.difficulty || "";
+        const isVisible = activeLevels.length === 0 || activeLevels.includes(difficulty);
+        item.hidden = !isVisible;
+        if (isVisible) {
+          visibleCount += 1;
+        }
+      });
+
+      emptyState.hidden = visibleCount !== 0;
+    }
+
+    filterButtons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      button.addEventListener("click", () => {
+        const isPressed = button.getAttribute("aria-pressed") === "true";
+        button.setAttribute("aria-pressed", String(!isPressed));
+        updateRoutesVisibility();
+      });
+    });
+
+    updateRoutesVisibility();
+  </script>
+</body>
+</html>
