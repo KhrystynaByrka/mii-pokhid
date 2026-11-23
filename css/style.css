@@ -3082,6 +3082,7 @@ img {
 .reviews-swiper .swiper-button-next {
   top: auto;
   bottom: 6px;
+  z-index: 11;
   width: 44px;
   height: 44px;
   margin-top: 0;

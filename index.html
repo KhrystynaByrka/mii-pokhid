@@ -348,7 +348,134 @@
         </div>
       </section>
 
-      <section class="section section-muted" id="reviews" aria-labelledby="reviews-title">
+      <section id="trip-calculator" class="section section-muted">
+        <div class="container">
+          <div class="section-heading">
+            <div class="eyebrow">Планування бюджету</div>
+            <h2>Калькулятор вартості походу</h2>
+            <p>Оберіть параметри маршруту, щоб отримати орієнтовний розрахунок вартості</p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:items-start">
+            <form id="calc-form" class="contact-card contact-form-card grid grid-cols-1 gap-5" novalidate>
+              <div>
+                <label class="mb-2 block text-sm font-medium text-text-primary" for="calc-route">Маршрут</label>
+                <select
+                  id="calc-route"
+                  name="route"
+                  class="block min-h-[48px] w-full rounded-[var(--radius-sm)] border border-[var(--color-secondary)] bg-cream px-3 py-3 font-body text-text-primary transition-[border-color,box-shadow] duration-200 hover:border-deep-moss focus-visible:border-deep-moss focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+                  aria-describedby="calc-route-error"
+                  aria-invalid="false"
+                  required
+                >
+                  <option value="" selected disabled>Оберіть маршрут</option>
+                  <option value="polonyna">Полонина</option>
+                  <option value="nesamovyte">Озеро Несамовите</option>
+                  <option value="shpytsi">Шпиці</option>
+                </select>
+                <p id="calc-route-error" class="mt-1 hidden text-sm text-error" aria-live="polite"></p>
+              </div>
+
+              <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-text-primary" for="calc-days">Кількість днів</label>
+                  <input
+                    id="calc-days"
+                    name="days"
+                    type="number"
+                    min="1"
+                    max="14"
+                    step="1"
+                    inputmode="numeric"
+                    class="block min-h-[48px] w-full rounded-[var(--radius-sm)] border border-[var(--color-secondary)] bg-cream px-3 py-3 font-body text-text-primary placeholder:text-text-muted placeholder:opacity-100 transition-[border-color,box-shadow] duration-200 hover:border-deep-moss focus-visible:border-deep-moss focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+                    aria-describedby="calc-days-error"
+                    aria-invalid="false"
+                    required
+                  >
+                  <p id="calc-days-error" class="mt-1 hidden text-sm text-error" aria-live="polite"></p>
+                </div>
+
+                <div>
+                  <label class="mb-2 block text-sm font-medium text-text-primary" for="calc-people">Кількість людей</label>
+                  <input
+                    id="calc-people"
+                    name="people"
+                    type="number"
+                    min="1"
+                    max="20"
+                    step="1"
+                    inputmode="numeric"
+                    class="block min-h-[48px] w-full rounded-[var(--radius-sm)] border border-[var(--color-secondary)] bg-cream px-3 py-3 font-body text-text-primary placeholder:text-text-muted placeholder:opacity-100 transition-[border-color,box-shadow] duration-200 hover:border-deep-moss focus-visible:border-deep-moss focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+                    aria-describedby="calc-people-error"
+                    aria-invalid="false"
+                    required
+                  >
+                  <p id="calc-people-error" class="mt-1 hidden text-sm text-error" aria-live="polite"></p>
+                </div>
+              </div>
+
+              <div>
+                <label class="mb-2 block text-sm font-medium text-text-primary" for="calc-lodging">Тип проживання</label>
+                <select
+                  id="calc-lodging"
+                  name="lodging"
+                  class="block min-h-[48px] w-full rounded-[var(--radius-sm)] border border-[var(--color-secondary)] bg-cream px-3 py-3 font-body text-text-primary transition-[border-color,box-shadow] duration-200 hover:border-deep-moss focus-visible:border-deep-moss focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-deep-moss focus-visible:ring-offset-2 focus-visible:ring-offset-cream"
+                  aria-describedby="calc-lodging-error"
+                  aria-invalid="false"
+                  required
+                >
+                  <option value="" selected disabled>Оберіть тип</option>
+                  <option value="tent">Намет</option>
+                  <option value="shelter">Притулок</option>
+                  <option value="guesthouse">Садиба</option>
+                </select>
+                <p id="calc-lodging-error" class="mt-1 hidden text-sm text-error" aria-live="polite"></p>
+              </div>
+
+              <fieldset class="m-0 min-w-0 rounded-[var(--radius-sm)] border border-[var(--color-secondary)] p-4">
+                <legend class="px-2 text-sm font-medium text-text-primary">Додаткові послуги</legend>
+                <div class="grid grid-cols-1 sm:grid-cols-3 sm:gap-3">
+                  <label class="checklist-item" for="calc-guide">
+                    <input id="calc-guide" name="services" type="checkbox" value="guide">
+                    <span>Гід</span>
+                  </label>
+
+                  <label class="checklist-item" for="calc-gear">
+                    <input id="calc-gear" name="services" type="checkbox" value="gear">
+                    <span>Оренда спорядження</span>
+                  </label>
+
+                  <label class="checklist-item" for="calc-meals">
+                    <input id="calc-meals" name="services" type="checkbox" value="meals">
+                    <span>Харчування</span>
+                  </label>
+                </div>
+              </fieldset>
+            </form>
+
+            <aside class="contact-card rounded-card bg-deep-moss text-cream lg:sticky lg:top-24" aria-labelledby="calc-result-title">
+              <h3 id="calc-result-title" class="text-heading-small font-semibold text-cream">Результат розрахунку</h3>
+
+              <div class="mt-4 rounded-[var(--radius-sm)] border-2 border-warm-amber bg-deep-moss-hover p-4">
+                <p class="text-sm font-medium text-footer-muted">Орієнтовна вартість</p>
+                <p id="calc-total" class="mt-1 font-heading text-heading-medium font-bold leading-heading text-cream">—</p>
+              </div>
+
+              <div class="mt-5">
+                <h4 class="text-sm font-semibold text-cream">Розбивка вартості</h4>
+                <ul id="calc-breakdown" class="mt-2 space-y-2 text-sm text-footer-muted">
+                  <li>Заповніть параметри походу</li>
+                </ul>
+              </div>
+
+              <p class="mt-5 text-sm text-footer-muted">Розрахунок орієнтовний, остаточна ціна залежить від умов походу.</p>
+              <p id="calc-status" class="mt-3 text-sm text-footer-muted" role="status" aria-live="polite"></p>
+            </aside>
+          </div>
+        </div>
+      </section>
+      
+      <section class="section" id="reviews" aria-labelledby="reviews-title">
         <div class="container">
           <div class="section-heading">
             <div class="eyebrow">Враження мандрівників</div>
@@ -439,7 +566,7 @@
           </div>
       </section>
 
-            <section class="section" id="gallery" aria-labelledby="gallery-title">
+            <section class="section section-muted" id="gallery" aria-labelledby="gallery-title">
         <div class="container">
           <div class="section-heading">
             <div class="eyebrow">Галерея маршрутів</div>
@@ -672,5 +799,6 @@
       }
     });
   </script>
+  <script src="assets/js/widget.js"></script>
 </body>
 </html>
