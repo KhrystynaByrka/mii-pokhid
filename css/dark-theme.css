@@ -1,0 +1,552 @@
+/* Dark theme "Лісова ніч" — only for home page (index.html) */
+body.dark-theme {
+  /* Backgrounds and surfaces */
+  --color-bg-base: #20271F;
+  --color-bg-light: #252E23;
+  --color-surface: #2B3529;
+  --color-surface-muted: #35412F;
+  --color-surface-warm: #303A2D;
+
+  /* Text */
+  --color-text-primary: #F5ECD5;
+  --color-text-muted: #C2C9B4;
+  --color-text-on-dark: #F5ECD5;
+  --color-footer-muted: #C2C9B4;
+  --color-card-text: #F5ECD5;
+
+  /* Accents */
+  --color-primary: #A4B465;
+  --color-primary-hover: #B7C77A;
+  --color-light-green: #B7C77A;
+  --color-secondary: #C0AD7A;
+  --color-accent: #F0BB78;
+  --color-accent-hover: #F6C98E;
+
+  /* Status */
+  --color-success: #8DBB83;
+  --color-warning: #F0BB78;
+  --color-error: #E58A82;
+
+  /* Additional */
+  --color-focus-ring: rgba(164, 180, 101, 0.8);
+  --color-hero-overlay: rgba(20, 28, 20, 0.58);
+  --color-light-overlay: rgba(255, 255, 255, 0.08);
+
+  color-scheme: dark;
+}
+
+/* Elements with hardcoded Tailwind utility colors in markup */
+body.dark-theme .bg-white {
+  background-color: var(--color-surface);
+}
+
+/* Header / navigation */
+body.dark-theme .site-header {
+  background: var(--color-bg-base);
+  border-bottom-color: var(--color-surface-muted);
+}
+
+/* Hero readability on video */
+body.dark-theme .hero .eyebrow,
+body.dark-theme .hero-copy h1,
+body.dark-theme .hero-copy > p,
+body.dark-theme .hero-typed {
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .hero-copy .button-outline-light {
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .hero-copy .button-outline-light:hover,
+body.dark-theme .hero-copy .button-outline-light:focus-visible {
+  background: var(--color-light-overlay);
+}
+
+/* Buttons: keep readable text on warm accent */
+body.dark-theme .button:not(.button-outline):not(.button-outline-light):not(.route-button):not(.routes-all-button) {
+  color: #20271F;
+}
+
+body.dark-theme .button.button-outline {
+  color: var(--color-text-primary);
+  border-color: var(--color-secondary);
+}
+
+body.dark-theme .button.button-outline:hover,
+body.dark-theme .button.button-outline:focus-visible {
+  background: var(--color-light-overlay);
+}
+
+/* Route and secondary action buttons keep light text on green */
+body.dark-theme .route-button,
+body.dark-theme .routes-all-button {
+  color: #20271F;
+}
+
+body.dark-theme .route-button:hover,
+body.dark-theme .routes-all-button:hover {
+  color: #20271F;
+}
+
+/* Cards and sections */
+body.dark-theme .route-card,
+body.dark-theme .review-card,
+body.dark-theme .contact-form-card {
+  background: var(--color-surface);
+  border-color: var(--color-surface-muted);
+}
+
+body.dark-theme .contact-info-card {
+  background: var(--color-surface-muted);
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .contact-info-card h2,
+body.dark-theme .contact-info-card h3,
+body.dark-theme .contact-info-card .contact-detail,
+body.dark-theme .contact-info-card .contact-detail span {
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .contact-detail:focus-visible,
+body.dark-theme .contact-social-link:focus-visible {
+  outline-color: var(--color-focus-ring);
+}
+
+/* "Як це працює": мінімалістичні колонки без карток (як у світлій темі) */
+body.dark-theme .step-card {
+  background: transparent;
+  border-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+body.dark-theme .step-number {
+  background: var(--color-bg-light);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+/* "Параметри підбору": без карткового оформлення (як у світлій темі) */
+body.dark-theme .feature-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+body.dark-theme .route-image {
+  background: var(--color-surface-muted);
+}
+
+body.dark-theme .route-stats {
+  border-top-color: var(--color-surface-muted);
+}
+
+body.dark-theme .difficulty-badge {
+  color: #20271F;
+}
+
+body.dark-theme .review-avatar-initials {
+  background: var(--color-primary);
+  color: #20271F;
+}
+
+/* Calculator */
+body.dark-theme #trip-calculator aside.contact-card {
+  background: var(--color-surface-muted);
+  color: var(--color-text-primary);
+}
+
+body.dark-theme #trip-calculator aside.contact-card h3,
+body.dark-theme #trip-calculator aside.contact-card h4,
+body.dark-theme #trip-calculator aside.contact-card p,
+body.dark-theme #trip-calculator aside.contact-card li {
+  color: var(--color-text-primary);
+}
+
+body.dark-theme #trip-calculator aside.contact-card .text-footer-muted {
+  color: var(--color-text-muted);
+}
+
+body.dark-theme #trip-calculator aside.contact-card > div.rounded-\[var\(--radius-sm\)\] {
+  background: var(--color-surface-warm);
+  border-color: var(--color-accent);
+}
+
+body.dark-theme #calc-total {
+  color: var(--color-text-primary);
+}
+
+body.dark-theme #calc-form {
+  background: var(--color-surface);
+}
+
+body.dark-theme #calc-form select,
+body.dark-theme #calc-form input[type="number"] {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-primary);
+  border-color: var(--color-secondary);
+}
+
+body.dark-theme #calc-form select option {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+body.dark-theme #calc-form fieldset {
+  border-color: var(--color-secondary);
+}
+
+body.dark-theme .checklist-item:hover {
+  background: var(--color-light-overlay);
+}
+
+body.dark-theme .review-star-muted {
+  color: rgba(245, 236, 213, 0.28);
+}
+
+/* Swiper */
+body.dark-theme .reviews-swiper {
+  --swiper-navigation-color: #20271F;
+}
+
+body.dark-theme .reviews-swiper .swiper-button-prev,
+body.dark-theme .reviews-swiper .swiper-button-next {
+  background: var(--color-primary);
+}
+
+body.dark-theme .reviews-swiper .swiper-button-prev:hover,
+body.dark-theme .reviews-swiper .swiper-button-next:hover {
+  background: var(--color-primary-hover);
+}
+
+body.dark-theme .reviews-swiper .swiper-pagination-bullet {
+  background: var(--color-secondary);
+  opacity: 0.6;
+}
+
+body.dark-theme .reviews-swiper .swiper-pagination-bullet-active {
+  background: var(--color-primary);
+  opacity: 1;
+}
+
+/* Gallery */
+body.dark-theme .gallery-caption {
+  background: linear-gradient(transparent, rgba(20, 28, 20, 0.88));
+  color: var(--color-text-primary);
+}
+
+/* CTA */
+body.dark-theme .final-cta {
+  background: var(--color-bg-light);
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .final-cta h2,
+body.dark-theme .final-cta .eyebrow {
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .final-cta .eyebrow {
+  color: var(--color-accent);
+}
+
+body.dark-theme .cta-content > p {
+  color: var(--color-text-muted);
+}
+
+body.dark-theme .final-cta .button-outline-light {
+  border-color: var(--color-secondary);
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .final-cta .button-outline-light:hover,
+body.dark-theme .final-cta .button-outline-light:focus-visible {
+  background: var(--color-light-overlay);
+}
+
+body.dark-theme .final-cta .button-light {
+  color: #20271F;
+}
+
+/* Footer */
+body.dark-theme .site-footer {
+  background: #252E23;
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .site-footer .footer-tagline,
+body.dark-theme .site-footer .footer-navigation a,
+body.dark-theme .site-footer .copyright {
+  color: var(--color-footer-muted);
+}
+
+body.dark-theme .site-footer .footer-navigation a:hover,
+body.dark-theme .site-footer .footer-navigation a:focus-visible {
+  color: var(--color-accent);
+}
+
+body.dark-theme .site-footer .copyright {
+  border-top-color: var(--color-surface-muted);
+}
+
+/* Typed cursor */
+body.dark-theme .typed-cursor {
+  color: var(--color-secondary);
+}
+
+/* Steps connector line */
+body.dark-theme .steps-grid::before {
+  border-top-color: var(--color-secondary);
+}
+
+/* Theme toggle */
+body.dark-theme .theme-toggle {
+  border-color: var(--color-secondary);
+}
+
+body.dark-theme .theme-toggle:focus-visible {
+  outline-color: var(--color-focus-ring);
+}
+
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 36px;
+  padding: 0;
+  border: 1.5px solid var(--color-secondary);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  flex: 0 0 auto;
+  transition: box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  box-shadow: 0 2px 8px rgba(70, 70, 45, 0.18);
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.theme-toggle-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.theme-toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(245, 236, 213, 0.28);
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1), background-color 280ms ease, border-color 280ms ease;
+  pointer-events: none;
+}
+
+body.dark-theme .theme-toggle-thumb {
+  transform: translateX(36px);
+  background: rgba(164, 180, 101, 0.22);
+  border-color: rgba(245, 236, 213, 0.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle-thumb {
+    transition: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .theme-toggle {
+    width: 64px;
+    height: 32px;
+  }
+
+  .theme-toggle-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  body.dark-theme .theme-toggle-thumb {
+    transform: translateX(32px);
+  }
+}
+
+/* Site-wide dark adaptations for inner pages */
+body.dark-theme .about-story-card,
+body.dark-theme .about-benefit-card,
+body.dark-theme .planner-form,
+body.dark-theme .checklist-card,
+body.dark-theme .review-form-card,
+body.dark-theme .review-gallery-card {
+  background: var(--color-surface);
+  border-color: var(--color-surface-muted);
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .about-video-frame {
+  background: #141C14;
+}
+
+body.dark-theme .about-benefit-number {
+  color: #20271F;
+}
+
+/* Planner and form controls */
+body.dark-theme .planner-select,
+body.dark-theme .duration-trigger,
+body.dark-theme .review-control,
+body.dark-theme .calendar-select {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-primary);
+  border-color: var(--color-secondary);
+}
+
+body.dark-theme .planner-select option,
+body.dark-theme .review-control option,
+body.dark-theme .calendar-select option {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .planner-select:hover,
+body.dark-theme .duration-trigger:hover,
+body.dark-theme .review-control:hover,
+body.dark-theme .calendar-select:hover {
+  background-color: var(--color-surface-warm);
+  border-color: var(--color-primary);
+}
+
+body.dark-theme .planner-select:focus-visible,
+body.dark-theme .duration-trigger:focus-visible,
+body.dark-theme .review-control:focus-visible,
+body.dark-theme .calendar-select:focus-visible {
+  box-shadow: 0 0 0 3px rgba(164, 180, 101, 0.3);
+}
+
+body.dark-theme .calendar-popover,
+body.dark-theme .calendar {
+  background: var(--color-surface);
+  border-color: var(--color-surface-muted);
+}
+
+body.dark-theme .calendar-day:disabled {
+  color: rgba(194, 201, 180, 0.45);
+}
+
+body.dark-theme .calendar-day.is-in-range {
+  background: var(--color-surface-muted);
+}
+
+body.dark-theme .calendar-day.is-selected {
+  color: #20271F;
+}
+
+body.dark-theme .calendar-apply {
+  color: #20271F;
+}
+
+body.dark-theme .planner-submit {
+  color: #20271F;
+}
+
+/* Checklist */
+body.dark-theme .checklist-pdf-button,
+body.dark-theme .review-submit-button {
+  color: #20271F;
+}
+
+body.dark-theme .checklist-mode-option,
+body.dark-theme .planner-companions .checklist-mode-option {
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .planner-companions input[type="checkbox"] {
+  background-color: var(--color-bg-light);
+}
+
+body.dark-theme .planner-companions input[type="checkbox"]:checked {
+  background: radial-gradient(circle, var(--color-primary) 0 4px, var(--color-bg-light) 4.5px);
+}
+
+/* Reviews page */
+body.dark-theme .review-photo-help,
+body.dark-theme .review-form-status,
+body.dark-theme .review-photo-status {
+  color: var(--color-text-muted);
+}
+
+body.dark-theme .review-photo-preview-item,
+body.dark-theme .review-like-button,
+body.dark-theme .review-photo-button {
+  border-color: var(--color-surface-muted);
+}
+
+body.dark-theme .review-like-button {
+  background: var(--color-bg-light);
+  color: var(--color-text-primary);
+}
+
+body.dark-theme .review-gallery-stars > span {
+  color: rgba(245, 236, 213, 0.28);
+}
+
+/* Routes page (inline-style components use variables, ensure empty state) */
+body.dark-theme .routes-page-empty {
+  background: var(--color-surface);
+  border-color: var(--color-surface-muted);
+  color: var(--color-text-muted);
+}
+
+/* Contact page form controls (some use Tailwind utilities mapped to vars; reinforce) */
+body.dark-theme #contact-form input,
+body.dark-theme #contact-form select,
+body.dark-theme #contact-form textarea {
+  color: var(--color-text-primary);
+}
+
+body.dark-theme #contact-form input::placeholder,
+body.dark-theme #contact-form textarea::placeholder {
+  color: var(--color-text-muted);
+}
+
+body.dark-theme #contact-subject:invalid {
+  color: var(--color-text-muted);
+}
+
+body.dark-theme .contact-form-status,
+body.dark-theme #contact-phone-hint {
+  color: var(--color-text-muted);
+}
+
+/* Additional adjustments: about video overlay and unified error colors */
+body.dark-theme .about-hero::after {
+  background: linear-gradient(var(--color-hero-overlay), var(--color-hero-overlay));
+}
+
+/* Dark theme: unify calculator/contact error colors to calculator dark reference (#E58A82 / --color-error) */
+body.dark-theme #contact-form .text-red-700,
+body.dark-theme #trip-calculator .text-red-700 {
+  color: var(--color-error) !important;
+}
+
+body.dark-theme #contact-form .\!border-red-500,
+body.dark-theme #trip-calculator .\!border-red-500 {
+  border-color: var(--color-error) !important;
+}

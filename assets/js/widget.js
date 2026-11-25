@@ -105,14 +105,14 @@
     errorElement.classList.remove('hidden');
     field.setAttribute('aria-invalid', 'true');
     field.classList.remove('!border-success');
-    field.classList.add('!border-error');
+    field.classList.add('!border-red-500');
   }
 
   function setFieldSuccess(field, errorElement) {
     errorElement.textContent = '';
     errorElement.classList.add('hidden');
     field.setAttribute('aria-invalid', 'false');
-    field.classList.remove('!border-error');
+    field.classList.remove('!border-red-500');
     field.classList.add('!border-success');
   }
 
@@ -120,7 +120,7 @@
     errorElement.textContent = '';
     errorElement.classList.add('hidden');
     field.setAttribute('aria-invalid', 'false');
-    field.classList.remove('!border-error');
+    field.classList.remove('!border-red-500');
     field.classList.remove('!border-success');
   }
 
