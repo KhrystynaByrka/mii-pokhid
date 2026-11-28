@@ -14,12 +14,7 @@
     body.classList.toggle("dark-theme", isDark);
 
     if (toggle) {
-      toggle.setAttribute("aria-pressed", isDark ? "true" : "false");
-      toggle.setAttribute(
-        "aria-label",
-        isDark ? "Увімкнути світлу тему" : "Увімкнути темну тему"
-      );
-      toggle.setAttribute("title", isDark ? "Світла тема" : "Темна тема");
+      toggle.setAttribute("aria-checked", isDark ? "true" : "false");
     }
 
     if (persist) {
