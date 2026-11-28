@@ -2021,10 +2021,14 @@ img {
 }
 
 .feature-icon {
+  display: block;
   width: var(--feature-icon-size);
   height: var(--feature-icon-size);
   margin-bottom: var(--spacing-card);
-  object-fit: contain;
+  padding: 9px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-muted);
+  color: var(--color-primary);
 }
 
 /* Reviews */
